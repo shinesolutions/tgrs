@@ -1,0 +1,22 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Resources:
+  GraphQL:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/lambda.handler
+      Runtime: nodejs12.x
+      Environment:
+        Variables:
+          messageServerUrl: http://host.docker.internal:8882
+      Events:
+        GetRequest:
+          Type: Api
+          Properties:
+            Path: /
+            Method: get
+        PostRequest:
+          Type: Api
+          Properties:
+            Path: /
+            Method: post
