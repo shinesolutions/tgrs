@@ -1,8 +1,16 @@
+import { Config } from "apollo-server";
+
 const jwt = require("jsonwebtoken");
 
 const { MessageDataSource } = require("./MessageDataSource");
 
-exports.createConfig = function (env, getHeader) {
+export function createConfig<TIntegrationContext>(
+  env,
+  getHeader: (
+    integrationContext: TIntegrationContext,
+    headerName: string
+  ) => string
+) {
   return {
     typeDefs: `
       type Query {
@@ -20,7 +28,7 @@ exports.createConfig = function (env, getHeader) {
     dataSources: () => ({
       message: new MessageDataSource(env.messageServerUrl),
     }),
-    context: function (integrationContext) {
+    context: function (integrationContext: TIntegrationContext) {
       const authHeader = getHeader(integrationContext, "Authorization");
       const payload = jwt.decode(authHeader);
 
@@ -29,4 +37,4 @@ exports.createConfig = function (env, getHeader) {
       };
     },
   };
-};
+}

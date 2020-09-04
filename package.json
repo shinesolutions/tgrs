@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node src/index.js",
+    "start": "yarn run nodemon --ext ts,graphql,json --exec 'ts-node' scripts/startDevServer",
     "watch": "nodemon src/index.js",
     "test": "jest",
     "startStub": "stubby --data stubby.yaml"
@@ -20,11 +20,14 @@
     "jsonwebtoken": "^8.5.1"
   },
   "devDependencies": {
+    "apollo-server-express": "^2.17.0",
     "graphql-request": "2.1.0-next.1",
     "jest": "^26.1.0",
     "js-yaml": "^3.14.0",
     "jwt-simple": "^0.5.6",
     "nodemon": "^2.0.4",
-    "stubby": "^5.0.0"
+    "stubby": "^5.0.0",
+    "ts-node": "^9.0.0",
+    "typescript": "^4.0.2"
   }
 }
