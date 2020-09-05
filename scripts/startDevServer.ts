@@ -5,8 +5,8 @@
  */
 
 import { ApolloServer } from "apollo-server";
-// TODO Get this type programmatically from one of the types exported from the
-// package, rather than having to dig into the package's contents
+// TODO Try deriving this type programmatically from one of the types exported
+// from the package, rather than having to dig into the package's contents
 import { ExpressContext as ExpressIntegrationContext } from "apollo-server/node_modules/apollo-server-express/src/ApolloServer";
 
 import { createConfig } from "../src/config";
