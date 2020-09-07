@@ -1,6 +1,8 @@
-const jwt = require("jsonwebtoken");
+import jwt from "jsonwebtoken";
 
 import { MessageDataSource } from "./MessageDataSource";
+import { isUndefined, isString, isNull } from "lodash";
+import { Object as JsonObject } from "json-typescript";
 
 export function createConfig<TIntegrationContext>(
   env: { messageServerUrl: string },
@@ -19,7 +21,7 @@ export function createConfig<TIntegrationContext>(
       Query: {
         greeting: async (
           _: {},
-          args: {},
+          __: {},
           context: {
             userName: string;
           } & {
@@ -36,10 +38,25 @@ export function createConfig<TIntegrationContext>(
     }),
     context: function (integrationContext: TIntegrationContext) {
       const authHeader = getHeader(integrationContext, "Authorization");
+      if (isUndefined(authHeader)) {
+        throw new Error();
+      }
+
       const payload = jwt.decode(authHeader);
+      if (isNull(payload) || isString(payload)) {
+        throw new Error(authHeader);
+      }
+
+      const json: JsonObject = payload;
+
+      const { name } = json;
+
+      if (!isString(name)) {
+        throw new Error(JSON.stringify(name));
+      }
 
       return {
-        userName: payload.name,
+        userName: name,
       };
     },
   };

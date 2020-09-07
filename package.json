@@ -18,12 +18,16 @@
     "apollo-server": "^2.17.0",
     "apollo-server-lambda": "^2.17.0",
     "graphql": "^14.0.0",
-    "jsonwebtoken": "^8.5.1"
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.20"
   },
   "devDependencies": {
+    "@types/jsonwebtoken": "^8.5.0",
+    "@types/lodash": "^4.14.161",
     "graphql-request": "2.1.0-next.1",
     "jest": "^26.1.0",
     "js-yaml": "^3.14.0",
+    "json-typescript": "^1.1.2",
     "jwt-simple": "^0.5.6",
     "nodemon": "^2.0.4",
     "stubby": "^5.0.0",
