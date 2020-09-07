@@ -1,15 +1,13 @@
-import { Config } from "apollo-server";
-
 const jwt = require("jsonwebtoken");
 
-const { MessageDataSource } = require("./MessageDataSource");
+import { MessageDataSource } from "./MessageDataSource";
 
 export function createConfig<TIntegrationContext>(
-  env,
+  env: { messageServerUrl: string },
   getHeader: (
     integrationContext: TIntegrationContext,
     headerName: string
-  ) => string
+  ) => string | undefined
 ) {
   return {
     typeDefs: `
@@ -19,7 +17,15 @@ export function createConfig<TIntegrationContext>(
     `,
     resolvers: {
       Query: {
-        greeting: async (source, args, context) =>
+        greeting: async (
+          _: {},
+          args: {},
+          context: {
+            userName: string;
+          } & {
+            dataSources: { message: MessageDataSource };
+          }
+        ) =>
           `${await context.dataSources.message.getMessage()}, ${
             context.userName
           }!`,

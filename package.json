@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "yarn run nodemon --ext ts,graphql,json --exec 'ts-node' scripts/startDevServer",
-    "watch": "nodemon src/index.js",
+    "typeCheck": "tsc --noEmit",
+    "typeCheckWatch": "yarn run typeCheck --watch",
     "test": "jest",
     "startStub": "stubby --data stubby.yaml"
   },
@@ -14,13 +15,13 @@
   "license": "ISC",
   "dependencies": {
     "apollo-datasource-rest": "^0.9.3",
-    "apollo-server": "^2.15.1",
-    "apollo-server-lambda": "^2.15.1",
+    "apollo-server": "^2.17.0",
+    "apollo-server-express": "^2.17.0",
+    "apollo-server-lambda": "^2.17.0",
     "graphql": "^14.0.0",
     "jsonwebtoken": "^8.5.1"
   },
   "devDependencies": {
-    "apollo-server-express": "^2.17.0",
     "graphql-request": "2.1.0-next.1",
     "jest": "^26.1.0",
     "js-yaml": "^3.14.0",
