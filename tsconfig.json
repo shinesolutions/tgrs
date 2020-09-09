@@ -11,6 +11,7 @@
     "noImplicitAny": true,
     "strictNullChecks": true,
     "strictFunctionTypes": true,
-    "noUnusedLocals": true
+    "noUnusedLocals": true,
+    "outDir": "dist"
   }
 }

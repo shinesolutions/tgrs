@@ -1,10 +1,11 @@
 {
-  "name": "portable-apollo-server",
+  "name": "tgrs",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "yarn run nodemon --ext ts,graphql,json --exec 'ts-node' scripts/startDevServer",
+    "build": "tsc",
     "typeCheck": "tsc --noEmit",
     "typeCheckWatch": "yarn run typeCheck --watch",
     "test": "jest",
