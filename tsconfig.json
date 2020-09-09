@@ -1,5 +1,9 @@
 {
+  "files": ["src/lambda.ts"],
   "compilerOptions": {
+    "module": "CommonJS",
+    "target": "es2017",
+    "outDir": "dist",
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
@@ -12,6 +16,6 @@
     "strictNullChecks": true,
     "strictFunctionTypes": true,
     "noUnusedLocals": true,
-    "outDir": "dist"
+    "allowSyntheticDefaultImports": true
   }
 }

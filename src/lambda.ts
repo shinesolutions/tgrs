@@ -1,5 +1,5 @@
-const { ApolloServer } = require("apollo-server-lambda");
-const { createConfig } = require("./config");
+import { ApolloServer } from "apollo-server-lambda";
+import { createConfig } from "./config";
 
 const server = new ApolloServer(
   createConfig(

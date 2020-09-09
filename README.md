@@ -22,8 +22,9 @@ To then start the GraphQl server standalone:
 
 To start the GraphQL server inside a local instance of API Gateway:
 
-1. Run `sam local start-api`
-2. Go to http://localhost:3000
+1. Run `yarn build`
+2. Run `sam local start-api`
+3. Go to http://localhost:3000
 
 Note that any queries you send to the GraphQL servers should include an
 `Authorization` header that is an encoded JWT with a field called `name`.

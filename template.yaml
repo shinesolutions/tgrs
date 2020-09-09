@@ -4,7 +4,7 @@ Resources:
   GraphQL:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: src/lambda.handler
+      Handler: dist/lambda.handler
       Runtime: nodejs12.x
       Environment:
         Variables:

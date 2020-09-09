@@ -5,12 +5,19 @@ import { isUndefined, isString, isNull } from "lodash";
 import { Object as JsonObject } from "json-typescript";
 
 export function createConfig<TIntegrationContext>(
-  env: { messageServerUrl: string },
+  env: { readonly [key: string]: string | undefined },
   getHeader: (
     integrationContext: TIntegrationContext,
     headerName: string
   ) => string | undefined
 ) {
+  const messageServerUrlParamName = "messageServerUrl";
+  const messageServerUrl = env[messageServerUrlParamName];
+
+  if (isUndefined(messageServerUrl)) {
+    throw new Error(messageServerUrlParamName);
+  }
+
   return {
     typeDefs: `
       type Query {
@@ -34,7 +41,7 @@ export function createConfig<TIntegrationContext>(
       },
     },
     dataSources: () => ({
-      message: new MessageDataSource(env.messageServerUrl),
+      message: new MessageDataSource(messageServerUrl),
     }),
     context: function (integrationContext: TIntegrationContext) {
       const authHeader = getHeader(integrationContext, "Authorization");
@@ -47,10 +54,12 @@ export function createConfig<TIntegrationContext>(
         throw new Error(authHeader);
       }
 
+      // If we've gotten this far, we will assume that the payload is valid JSON
       const json: JsonObject = payload;
 
       const { name } = json;
 
+      // Check that the JSON has the fields we want
       if (!isString(name)) {
         throw new Error(JSON.stringify(name));
       }
