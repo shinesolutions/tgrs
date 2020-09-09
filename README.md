@@ -11,16 +11,16 @@ React TBC
 
 ## Starting the servers
 
-Before starting any of the GraphQL servers, you should first start the stub REST server:
+Before starting one of the GraphQL servers, you should first start the stub REST server:
 
      yarn startStub
 
-To then start the GraphQl server standalone:
+To then start the GraphQl server inside an Express instance:
 
 1. Run `yarn start`
 2. Go to http://localhost:4000
 
-To start the GraphQL server inside a local instance of API Gateway:
+or to start the GraphQL server inside a local instance of API Gateway:
 
 1. Run `yarn build`
 2. Run `sam local start-api`
