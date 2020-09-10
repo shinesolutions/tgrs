@@ -1,30 +1,47 @@
-const { ApolloServer } = require("apollo-server");
-const { GraphQLClient } = require("graphql-request");
-const { createConfig } = require("./config");
-const { Stubby } = require("stubby");
-const { promisify } = require("util");
-const yaml = require("js-yaml");
-const fs = require("fs");
-const path = require("path");
-const jwt = require("jwt-simple");
+import { ApolloServer, ServerInfo } from "apollo-server";
+import { GraphQLClient } from "graphql-request";
+import { createConfig } from "./config";
+import { Stubby, StubbyData } from "stubby";
+import { promisify } from "util";
+import * as yaml from "js-yaml";
+import fs from "fs";
+import path from "path";
+import jwt from "jwt-simple";
+import { isNull, isString, isUndefined } from "lodash";
 
-let serverInfo;
-let stubby;
-let graphQlClient;
+let serverInfo: ServerInfo;
+let stubby: Stubby;
+let graphQlClient: GraphQLClient;
 
 beforeAll(async () => {
   stubby = new Stubby();
 
-  // Start all stubby services on ephemeral ports to avoid port conflicts
-  await promisify(stubby.start).bind(stubby)({
-    stubs: 0,
-    admin: 0,
-    tls: 0,
-    data: yaml.safeLoad(
-      fs.readFileSync(path.join(__dirname, "..", "stubby.yaml"))
-    ),
-  });
-  const { address: stubAddress, port: stubPort } = stubby.stubsPortal.address();
+  const data = yaml.safeLoad(
+    fs.readFileSync(path.join(__dirname, "..", "stubby.yaml"), "utf-8")
+  );
+
+  if (isUndefined(data) || isString(data)) {
+    throw new Error(data);
+  }
+
+  await new Promise((resolve, reject) =>
+    stubby.start(
+      {
+        // Start all stubby services on ephemeral ports to avoid port conflicts
+        stubs: 0,
+        admin: 0,
+        tls: 0,
+        data: data as StubbyData,
+      },
+      (err) => (err ? reject(err) : resolve())
+    )
+  );
+  const address = stubby.stubsPortal.address();
+
+  if (isNull(address) || isString(address)) {
+    throw new Error(JSON.stringify(address));
+  }
+  const { address: stubAddress, port: stubPort } = address;
 
   const apolloServer = new ApolloServer(
     createConfig(
