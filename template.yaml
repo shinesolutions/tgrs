@@ -6,6 +6,7 @@ Resources:
     Properties:
       Handler: dist/lambda.handler
       Runtime: nodejs12.x
+      Timeout: 10
       Environment:
         Variables:
           messageServerUrl: http://host.docker.internal:8882
