@@ -1,14 +1,15 @@
 # TGRS (TypeScript/GraphQL/React/Serverless) Sample Project
 
-React TBC
+React part still to be completed
 
 ## Initial Setup
 
 1.  [Install nodenv](https://github.com/nodenv/nodenv#installation)
 2.  [Install yarn 1.x](https://classic.yarnpkg.com/en/docs/install)
 3.  [Install the AWS SAM CLI](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html)
-4.  Run `yarn install`
-5.  (Optional but recommended) Install [GraphiQL](https://www.electronjs.org/apps/graphiql)
+4.  Run `nodenv install`
+5.  Run `yarn install`
+6.  (Optional but recommended) Install [GraphiQL](https://www.electronjs.org/apps/graphiql)
 
 ## Starting the servers
 
