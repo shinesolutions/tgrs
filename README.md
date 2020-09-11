@@ -13,34 +13,45 @@ React part still to be completed
 
 ## Starting the servers
 
-1. Start the stub REST server:
+1.  Start the stub REST server:
 
-   yarn startStub
+    yarn startStub
 
-2. Either:
+2.  Either:
 
-   - Start the GraphQl server inside an Express instance:
+    - Start the GraphQl server inside an Express instance:
 
-     1. Run `yarn start`
-     2. Either go to http://localhost:4000 in a browser, or point GraphiQL at that URL
+      1. Run `yarn start`
+      2. Go to the [GraphQL Playground](https://www.apollographql.com/docs/apollo-server/testing/graphql-playground/)
+         at http://localhost:4000, or point GraphiQL at that URL
 
-     or,
+      or,
 
-   - Start the GraphQL server inside a local instance of API Gateway:
+    - Start the GraphQL server inside a local instance of API Gateway:
 
-     1. Run `yarn build`
-     2. Run `sam local start-api`
-     3. Go to http://localhost:3000 in a browser, or point GraphiQL at that URL
+      1. Run `yarn build`
+      2. Run `sam local start-api`
+      3. Go to the GraphQL Playground at http://localhost:3000, or point
+         GraphiQL at that URL
 
-Note that any queries you send to either GraphQL server should include an
-`Authorization` header that is an encoded JWT with a field called `name`.
-Here's a sample token with the name `John Doe`:
+3.  Configure either Playground or GraphiQL to include an `Authorization`
+    header that is an encoded JWT with a field called `name`. In Playground,
+    you can set this header with the user name name `John Doe` by adding the
+    following to the 'HTTP HEADERS' tab:
 
-```
-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
-```
+    ```
+    {
+      "Authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+    }
+    ```
 
-To create your own token, we recommend using https://jwt.io.
+    To create your own token, we recommend using https://jwt.io.
+
+4.  In Playground or GraphiQL, run the query:
+
+        query {
+          greeting
+        }
 
 ## Running the tests
 
