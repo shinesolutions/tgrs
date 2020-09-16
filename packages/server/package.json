@@ -1,0 +1,41 @@
+{
+  "name": "server",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "start": "yarn run nodemon --ext ts,graphql,json --exec 'ts-node' scripts/startDevServer",
+    "build": "mkdir -p dist && cp -r node_modules ./dist && tsc",
+    "clean": "rm -rf dist/*",
+    "watch": "yarn build --watch",
+    "typeCheck": "tsc --noEmit",
+    "typeCheckWatch": "yarn typeCheck --watch",
+    "test": "jest",
+    "startRestStub": "stubby --data stubby.yaml",
+    "startLambda": "sam local start-api"
+  },
+  "dependencies": {
+    "apollo-datasource-rest": "^0.9.3",
+    "apollo-server": "^2.17.0",
+    "apollo-server-lambda": "^2.17.0",
+    "graphql": "^14.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.20"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.13",
+    "@types/js-yaml": "^3.12.5",
+    "@types/jsonwebtoken": "^8.5.0",
+    "@types/lodash": "^4.14.161",
+    "@types/stubby": "^4.1.0",
+    "graphql-request": "2.1.0-next.1",
+    "jest": "^26.4.2",
+    "js-yaml": "^3.14.0",
+    "json-typescript": "^1.1.2",
+    "jwt-simple": "^0.5.6",
+    "nodemon": "^2.0.4",
+    "stubby": "^5.0.0",
+    "ts-jest": "^26.3.0",
+    "ts-node": "^9.0.0",
+    "typescript": "^4.0.2"
+  }
+}

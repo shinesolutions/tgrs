@@ -15,23 +15,24 @@ React part still to be completed
 
 1.  Start the stub REST server:
 
-    yarn startStub
+        yarn workspace server startRestStub
 
-2.  Either:
+2.  Then either:
 
     - Start the GraphQl server inside an Express instance:
 
-      1. Run `yarn start`
+      1. Run `yarn workspace server start`
       2. Go to the [GraphQL Playground](https://www.apollographql.com/docs/apollo-server/testing/graphql-playground/)
          at http://localhost:4000, or point GraphiQL at that URL
 
-      or,
+    or,
 
     - Start the GraphQL server inside a local instance of API Gateway:
 
-      1. Run `yarn build`
-      2. Run `sam local start-api`
-      3. Go to the GraphQL Playground at http://localhost:3000, or point
+      1. Run `yarn workspace server build`
+      2. Go to `packages/server`
+      3. Run `sam local start-api`
+      4. Go to the GraphQL Playground at http://localhost:3000, or point
          GraphiQL at that URL
 
 3.  Configure either Playground or GraphiQL to include an `Authorization`
