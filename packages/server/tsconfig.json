@@ -1,20 +1,9 @@
 {
+  "extends": "../../tsconfig.json",
   "files": ["src/lambda.ts"],
   "compilerOptions": {
     "module": "CommonJS",
     "target": "es2017",
-    "outDir": "dist",
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "esModuleInterop": true,
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noImplicitReturns": true,
-    "noImplicitThis": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
-    "noUnusedLocals": true
+    "outDir": "dist"
   }
 }

@@ -10,8 +10,7 @@
     "typeCheck": "tsc --noEmit",
     "typeCheckWatch": "yarn typeCheck --watch",
     "test": "jest",
-    "startRestStub": "stubby --data stubby.yaml",
-    "startLambda": "sam local start-api"
+    "startRestStub": "stubby --data stubby.yaml"
   },
   "dependencies": {
     "apollo-datasource-rest": "^0.9.3",
