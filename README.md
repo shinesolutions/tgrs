@@ -11,31 +11,39 @@ React part still to be completed
 5.  Run `yarn install`
 6.  (Optional but recommended) Install [GraphiQL](https://www.electronjs.org/apps/graphiql)
 
-## Starting the servers
+## Quick Start
 
 1.  Start the stub REST server:
 
         yarn workspace server startRestStub
 
-2.  Then either:
+2.  Start the GraphQl server inside an Express instance:
 
-    - Start the GraphQl server inside an Express instance:
+        yarn workspace server start
 
-      1. Run `yarn workspace server start`
-      2. Go to the [GraphQL Playground](https://www.apollographql.com/docs/apollo-server/testing/graphql-playground/)
-         at http://localhost:4000, or point GraphiQL at that URL
+3.  Start the client:
 
-    or,
+        yarn workspace client start
 
-    - Start the GraphQL server inside a local instance of API Gateway:
+4.  Go to http://localhost:3000
 
-      1. Run `yarn workspace server build`
-      2. Go to `packages/server`
-      3. Run `sam local start-api --port 5000`
-      4. Go to the GraphQL Playground at http://localhost:5000, or point
-         GraphiQL at that URL
+## Starting the GraphQL Server in a local Lambda
 
-3.  Configure either Playground or GraphiQL to include an `Authorization`
+To start the GraphQL server in a lambda that is accessible to a local instance of API
+Gateway:
+
+1. Run `yarn workspace server build`
+2. Go to `packages/server`
+3. Run `sam local start-api --port 5000`
+4. Go to the GraphQL Playground at http://localhost:5000, or point
+   GraphiQL at that URL
+5. Go to the next section
+
+## Calling a GraphQL server directly
+
+To call a GraphQl server directly:
+
+1.  Configure either Playground or GraphiQL to include an `Authorization`
     header that is an encoded JWT with a field called `name`. In Playground,
     you can set this header with the user name name `John Doe` by adding the
     following to the 'HTTP HEADERS' tab:
@@ -48,7 +56,7 @@ React part still to be completed
 
     To create your own token, we recommend using https://jwt.io.
 
-4.  In Playground or GraphiQL, run the query:
+2.  In Playground or GraphiQL, run the query:
 
         query {
           greeting
@@ -58,4 +66,4 @@ React part still to be completed
 
 To run the tests:
 
-     yarn test
+     yarn workspace server test
