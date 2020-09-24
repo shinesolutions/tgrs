@@ -31,8 +31,8 @@ React part still to be completed
 
       1. Run `yarn workspace server build`
       2. Go to `packages/server`
-      3. Run `sam local start-api`
-      4. Go to the GraphQL Playground at http://localhost:3000, or point
+      3. Run `sam local start-api --port 5000`
+      4. Go to the GraphQL Playground at http://localhost:5000, or point
          GraphiQL at that URL
 
 3.  Configure either Playground or GraphiQL to include an `Authorization`
