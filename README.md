@@ -1,7 +1,5 @@
 # TGRS (TypeScript/GraphQL/React/Serverless) Sample Project
 
-React part still to be completed
-
 ## Initial Setup
 
 1.  [Install nodenv](https://github.com/nodenv/nodenv#installation)
