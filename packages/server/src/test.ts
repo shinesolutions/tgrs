@@ -67,7 +67,9 @@ beforeAll(async () => {
 });
 
 test("greeting", async () => {
-  const data = await graphQlClient.request(`{ greeting }`);
+  const data = await graphQlClient.request(
+    `query { greeting(language: ENGLISH) }`
+  );
   expect(data.greeting).toEqual("Hello, Ben!");
 });
 

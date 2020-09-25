@@ -1,0 +1,7 @@
+enum Language {
+  ENGLISH
+}
+
+type Query {
+  greeting(language: Language!): String!
+}

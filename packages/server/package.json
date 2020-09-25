@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "scripts": {
     "start": "yarn run nodemon --ext ts,graphql,json --exec 'ts-node' scripts/startDevServer",
-    "build": "mkdir -p dist && cp -r node_modules ./dist && tsc",
+    "build": "mkdir -p dist && cp -r node_modules src/schema.graphql ./dist && tsc",
     "clean": "rm -rf dist/*",
     "watch": "yarn build --watch",
     "typeCheck": "tsc --noEmit",

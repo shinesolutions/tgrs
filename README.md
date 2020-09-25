@@ -61,7 +61,7 @@ To call a GraphQl server directly:
 2.  In Playground or GraphiQL, run the query:
 
         query {
-          greeting
+          greeting(language: ENGLISH)
         }
 
 ## Running the tests

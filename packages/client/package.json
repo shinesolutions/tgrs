@@ -19,9 +19,10 @@
     "typescript": "~3.7.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test"
+    "start": "./scripts/start.sh",
+    "build": "./scripts/build.sh",
+    "test": "react-scripts test",
+    "codegen": "./scripts/codegen.sh"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -40,6 +41,7 @@
   },
   "devDependencies": {
     "@types/lodash": "^4.14.161",
+    "apollo": "^2.31.0",
     "json-typescript": "^1.1.2"
   }
 }

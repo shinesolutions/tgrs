@@ -3,6 +3,8 @@ import jwt from "jsonwebtoken";
 import { MessageDataSource } from "./MessageDataSource";
 import { isUndefined, isString, isNull } from "lodash";
 import { Object as JsonObject } from "json-typescript";
+import * as fs from "fs";
+import * as path from "path";
 
 export function createConfig<TIntegrationContext>(
   env: { readonly [key: string]: string | undefined },
@@ -19,11 +21,7 @@ export function createConfig<TIntegrationContext>(
   }
 
   return {
-    typeDefs: `
-      type Query {
-        greeting: String!
-      }
-    `,
+    typeDefs: fs.readFileSync(path.join(__dirname, "schema.graphql"), "utf8"),
     resolvers: {
       Query: {
         greeting: async (
