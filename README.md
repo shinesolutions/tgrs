@@ -19,11 +19,15 @@
 
         yarn workspace server start
 
-3.  Start the client:
+3.  Set up a client environment file that configures the client to talk to the Express server:
+
+        ln -sf ../env/localhost-4000.json packages/client/public/env.json
+
+4.  Start the client:
 
         yarn workspace client start
 
-4.  Go to http://localhost:3000
+5.  Go to http://localhost:3000
 
 ## Starting the GraphQL Server in a local Lambda
 
