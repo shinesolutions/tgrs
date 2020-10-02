@@ -43,25 +43,29 @@ Gateway:
 
 ## Calling a GraphQL server directly
 
-To call a GraphQl server directly:
-
-1.  Configure either Playground or GraphiQL to include an `Authorization`
-    header that is an encoded JWT with a field called `name`. In Playground,
-    you can set this header with the user name name `John Doe` by adding the
-    following to the 'HTTP HEADERS' tab:
-
-    ```
-    {
-      "Authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
-    }
-    ```
-
-    To create your own token, we recommend using https://jwt.io.
-
-2.  In Playground or GraphiQL, run the query:
+For endpoints that _don't_ require that there be a logged-in user, just run the
+query in Playground or GraphiQL. For example:
 
         query {
           greeting(language: ENGLISH)
+        }
+
+For endpoints that _do_ require there be a logged-in user, you'll need to first
+Configure either Playground or GraphiQL to include an `Authorization` header
+that is an encoded JWT with a field called `name`. In Playground, you can set
+this header with the user name name `John Doe` by adding the following to the
+'HTTP HEADERS' tab:
+
+        {
+                "Authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+        }
+
+To create your own token, we recommend using https://jwt.io.
+
+You can then run the query. For example:
+
+        query {
+                personalizedGreeting(language: ENGLISH)
         }
 
 ## Running the tests

@@ -16,6 +16,7 @@
     "apollo-datasource-rest": "^0.9.3",
     "apollo-server": "^2.17.0",
     "apollo-server-lambda": "^2.17.0",
+    "aws-lambda": "^1.0.6",
     "graphql": "^14.0.0",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.20"

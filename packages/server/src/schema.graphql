@@ -2,6 +2,10 @@ enum Language {
   ENGLISH
 }
 
+# Declares that a field can only be accessed by a logged-in user
+directive @requiresUser on FIELD_DEFINITION
+
 type Query {
   greeting(language: Language!): String!
+  personalizedGreeting(language: Language!): String! @requiresUser
 }

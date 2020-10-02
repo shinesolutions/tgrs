@@ -5,20 +5,16 @@
  */
 
 import { ApolloServer } from "apollo-server";
-// TODO Try deriving this type programmatically from one of the types exported
-// from the "apollo-server" package, rather than having to dig into the
-// package's contents
-import { ExpressContext as ExpressIntegrationContext } from "apollo-server-express/dist/ApolloServer";
-
 import { createConfig } from "../src/config";
+import { ExpressIntegrationContext } from "../src/ExpressIntegrationContext";
 
 // In development, load the environment information directly from the filesystem
 const env = require("../env.json");
 
 const server = new ApolloServer(
-  createConfig<ExpressIntegrationContext>(
+  createConfig(
     env,
-    (integrationContext, headerName) =>
+    (integrationContext: ExpressIntegrationContext, headerName) =>
       integrationContext.req.header(headerName)
   )
 );

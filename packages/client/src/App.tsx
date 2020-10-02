@@ -8,7 +8,7 @@ function App() {
   const { data, loading, error } = useQuery<AppQuery, AppQueryVariables>(
     gql`
       query AppQuery($language: Language!) {
-        greeting(language: $language)
+        personalizedGreeting(language: $language)
       }
     `,
     {
@@ -20,7 +20,7 @@ function App() {
 
   return (
     <div className="App">
-      {loading ? "Loading..." : error ? "Error!" : data?.greeting}
+      {loading ? "Loading..." : error ? "Error!" : data?.personalizedGreeting}
     </div>
   );
 }

@@ -8,10 +8,12 @@ import fs from "fs";
 import path from "path";
 import jwt from "jwt-simple";
 import { isNull, isString, isUndefined } from "lodash";
+import { ExpressIntegrationContext } from "./ExpressIntegrationContext";
 
 let serverInfo: ServerInfo;
 let stubby: Stubby;
-let graphQlClient: GraphQLClient;
+let loggedOutClient: GraphQLClient;
+let loggedInClient: GraphQLClient;
 
 beforeAll(async () => {
   stubby = new Stubby();
@@ -47,7 +49,7 @@ beforeAll(async () => {
     createConfig(
       // Set the Apollo config to use the details of where the stub is running
       { messageServerUrl: `http://${stubAddress}:${stubPort}` },
-      (integrationContext, headerName) =>
+      (integrationContext: ExpressIntegrationContext, headerName) =>
         // Because we're running in Express, extract headers from Express
         // requests
         integrationContext.req.header(headerName)
@@ -57,20 +59,48 @@ beforeAll(async () => {
   // Start Apollo Server on ephemeral port to avoid port conflicts
   serverInfo = await apolloServer.listen({ port: 0 });
 
-  // Set up a client that can contact the GraphQL server. All requests that
-  // the client makes should include an encoded authorization header.
-  graphQlClient = new GraphQLClient(serverInfo.url, {
+  // Set up a client that can contact the GraphQL server as a logged-out user
+  loggedOutClient = new GraphQLClient(serverInfo.url);
+
+  // Set up a client that can contact the GraphQL server as a logged-in user
+  loggedInClient = new GraphQLClient(serverInfo.url, {
     headers: {
       Authorization: jwt.encode({ name: "Ben" }, "DummySecret"),
     },
   });
 });
 
-test("greeting", async () => {
-  const data = await graphQlClient.request(
-    `query { greeting(language: ENGLISH) }`
-  );
-  expect(data.greeting).toEqual("Hello, Ben!");
+describe("personalizedGreeting", () => {
+  it("should be accessible to a logged-in user", async () => {
+    const data = await loggedInClient.request(
+      `query { personalizedGreeting(language: ENGLISH) }`
+    );
+    expect(data.personalizedGreeting).toEqual("Hello, Ben!");
+  });
+
+  it("should not be accessible to a logged-out user", async () => {
+    expect(() =>
+      loggedOutClient.request(
+        `query { personalizedGreeting(language: ENGLISH) }`
+      )
+    ).rejects.toThrow();
+  });
+});
+
+describe("greeting", () => {
+  it("should be accessible to a logged-in user", async () => {
+    const data = await loggedOutClient.request(
+      `query { greeting(language: ENGLISH) }`
+    );
+    expect(data.greeting).toEqual("Hello!");
+  });
+
+  it("should be accessible to a logged-in user", async () => {
+    const data = await loggedInClient.request(
+      `query { greeting(language: ENGLISH) }`
+    );
+    expect(data.greeting).toEqual("Hello!");
+  });
 });
 
 afterAll(async () => {
