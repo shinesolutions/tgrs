@@ -3,13 +3,14 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "start": "yarn run nodemon --ext ts,graphql,json --exec 'ts-node' scripts/startDevServer",
-    "build": "mkdir -p dist && cp -r node_modules src/schema.graphql ./dist && tsc",
+    "codegen": "graphql-codegen --config codegen.yml",
+    "start": "./scripts/start.sh",
+    "build": "./scripts/build.sh",
     "clean": "rm -rf dist/*",
     "watch": "yarn build --watch",
     "typeCheck": "tsc --noEmit",
     "typeCheckWatch": "yarn typeCheck --watch",
-    "test": "jest",
+    "test": "yarn codegen && jest",
     "startRestStub": "stubby --data stubby.yaml"
   },
   "dependencies": {
@@ -22,11 +23,15 @@
     "lodash": "^4.17.20"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^1.17.10",
+    "@graphql-codegen/typescript": "^1.17.10",
+    "@graphql-codegen/typescript-resolvers": "^1.17.10",
     "@types/jest": "^26.0.13",
     "@types/js-yaml": "^3.12.5",
     "@types/jsonwebtoken": "^8.5.0",
     "@types/lodash": "^4.14.161",
     "@types/stubby": "^4.1.0",
+    "concurrently": "^5.3.0",
     "graphql-request": "2.1.0-next.1",
     "jest": "^26.4.2",
     "js-yaml": "^3.14.0",

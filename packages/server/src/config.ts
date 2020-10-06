@@ -8,7 +8,7 @@ import * as path from "path";
 import { GraphQLField } from "graphql";
 import { resolvers } from "./resolvers";
 import { assert } from "./assert";
-import { RequestContext } from "./RequestContext";
+import { BaseContext } from "./context";
 
 export function createConfig<TIntegrationContext>(
   env: { readonly [key: string]: string | undefined },
@@ -33,9 +33,7 @@ export function createConfig<TIntegrationContext>(
     dataSources: () => ({
       message: new MessageDataSource(messageServerUrl),
     }),
-    context: function (
-      integrationContext: TIntegrationContext
-    ): RequestContext {
+    context: function (integrationContext: TIntegrationContext): BaseContext {
       const authHeader = getHeader(integrationContext, "Authorization");
 
       let user;
@@ -70,7 +68,7 @@ export function createConfig<TIntegrationContext>(
  */
 class UserDirective extends SchemaDirectiveVisitor {
   // Use `any` for the source as we don't care what it is
-  visitFieldDefinition(field: GraphQLField<any, RequestContext>) {
+  visitFieldDefinition(field: GraphQLField<any, BaseContext>) {
     // Override the resolver for the field so that, if no user is available,
     // an error is raised
     const { resolve: originalResolve } = field;

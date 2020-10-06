@@ -1,24 +1,13 @@
-import { MessageDataSource } from "./MessageDataSource";
-import { RequestContext } from "./RequestContext";
 import { assert } from "./assert";
 import { isUndefined } from "lodash";
+import { Resolvers } from "./__generatedTypes__";
 
-type Context = RequestContext & {
-  dataSources: {
-    message: MessageDataSource;
-  };
-};
-
-export const resolvers = {
+export const resolvers: Resolvers = {
   Query: {
-    greeting: async (_: {}, __: {}, { dataSources }: Context) => {
+    greeting: async (_, __, { dataSources }) => {
       return `${await dataSources.message.getMessage()}!`;
     },
-    personalizedGreeting: async (
-      _: {},
-      __: {},
-      { user, dataSources }: Context
-    ) => {
+    personalizedGreeting: async (_, __, { user, dataSources }) => {
       assert(!isUndefined(user));
       return `${await dataSources.message.getMessage()}, ${user.name}!`;
     },
