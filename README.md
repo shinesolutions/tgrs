@@ -2,7 +2,7 @@
 
 TGRS stands for [TypeScript](https://www.typescriptlang.org/),
 [GraphQL](https://www.graphql.com/), [React](https://reactjs.org/) and
-[Serverless](https://en.wikipedia.org/wiki/Serverless_computing). This is a
+[serverless](https://en.wikipedia.org/wiki/Serverless_computing). This is a
 sample project that demonstrates the key technologies in this stack. For a
 general overview of the stack and the decisions behind it, see
 [NOTES.md](./NOTES.md).
