@@ -5,7 +5,7 @@ TGRS stands for [TypeScript](https://www.typescriptlang.org/),
 [serverless](https://en.wikipedia.org/wiki/Serverless_computing). This is a
 sample project that demonstrates the key technologies in this stack. For a
 general overview of the stack and the decisions behind it, see
-[NOTES.md](./NOTES.md).
+[here](./NOTES.md).
 
 ## Initial Setup
 
