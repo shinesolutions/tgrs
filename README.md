@@ -18,23 +18,29 @@ general overview of the stack and the decisions behind it, see
 
 ## Quick Start
 
-1.  Start the stub REST server:
+1.  Start the integration environment stub REST server:
 
-        yarn workspace server startRestStub
+        yarn workspace integration startStubby
 
-2.  Start the GraphQl server inside an Express instance:
+2.  Set up a server environment file that configures the server to talk to the
+    integration environment's stub REST server:
+
+        ln -sf ./env.integration.json packages/server/env.json
+
+3.  Start the GraphQl server inside an Express instance:
 
         yarn workspace server start
 
-3.  Set up a client environment file that configures the client to talk to the Express server:
+4.  Set up a client environment file that configures the client to talk to the
+    GraphQL Express server:
 
         ln -sf ../env/localhost-4000.json packages/client/public/env.json
 
-4.  Start the client:
+5.  Start the client:
 
         yarn workspace client start
 
-5.  Go to http://localhost:3000
+6.  Go to http://localhost:3000
 
 ## Starting the GraphQL Server in a local Lambda
 
@@ -75,8 +81,8 @@ You can then run the query. For example:
                 personalizedGreeting(language: ENGLISH)
         }
 
-## Running the tests
+## Running the integration tests
 
-To run the tests:
+To run the integration tests:
 
-     yarn workspace server test
+     yarn workspace integration test

@@ -1,0 +1,19 @@
+{
+  "extends": "../../tsconfig.json",
+
+  "compilerOptions": {
+    // Apollo DataSources can't be constructed successfully during integration
+    // tests if we transpile to es5. Because we're running Node 6+, it's safe
+    // to target es2016. For more info, see
+    // https://github.com/apollographql/apollo-server/issues/1388.
+    "target": "es2016",
+
+    "module": "commonjs",
+
+    // Typescript is only used for type-checking in the integration
+    // environment, not code generation. Jest executes the code at runtime.
+    "noEmit": true
+  },
+
+  "include": ["src", "environment"]
+}

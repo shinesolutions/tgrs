@@ -11,17 +11,16 @@ import { assert } from "./assert";
 import { BaseContext } from "./context";
 
 export function createConfig<TIntegrationContext>(
-  env: { readonly [key: string]: string | undefined },
+  env: { messageServerUrl?: string },
   getHeader: (
     integrationContext: TIntegrationContext,
     headerName: string
   ) => string | undefined
 ): Config {
-  const messageServerUrlParamName = "messageServerUrl";
-  const messageServerUrl = env[messageServerUrlParamName];
+  const messageServerUrl = env.messageServerUrl;
 
   if (isUndefined(messageServerUrl)) {
-    throw new Error(messageServerUrlParamName);
+    throw new Error();
   }
 
   return {
