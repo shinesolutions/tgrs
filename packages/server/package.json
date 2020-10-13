@@ -6,7 +6,7 @@
     "codegen": "graphql-codegen --config codegen.yml",
     "start": "./scripts/start.sh",
     "build": "./scripts/build.sh",
-    "clean": "rm -rf dist/*",
+    "clean": "./scripts/clean.sh",
     "watch": "yarn build --watch",
     "typeCheck": "tsc --noEmit",
     "typeCheckWatch": "yarn typeCheck --watch",

@@ -3,4 +3,5 @@
 set -o errexit
 mkdir -p dist
 cp -r node_modules src/schema.graphql ./dist
+yarn codegen
 tsc $1

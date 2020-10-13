@@ -1,0 +1,26 @@
+name: CI
+
+on:
+  push:
+    branches: 
+      - '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+
+    steps:        
+      - uses: actions/checkout@v2
+      # Install the Node version specified in the project `.node-version` file
+      - uses: nodenv/actions/node-version@v2.0.7
+        id: nodenv
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '${{ steps.nodenv.outputs.node-version }}'
+      # Yarn will also have been installed by actions/setup-node@v1
+      - name: build
+        run: | 
+          yarn install --immutable
+          yarn workspace server build
+          yarn workspace client build
+          yarn workspace integration test
