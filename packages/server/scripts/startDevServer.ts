@@ -6,7 +6,7 @@
 
 import { ApolloServer } from "apollo-server";
 import { createConfig } from "../src/config";
-import { ExpressIntegrationContext } from "../src/ExpressIntegrationContext";
+import { ExpressIntegrationContext } from "../src/express";
 
 // In development, load the environment information directly from the filesystem
 const env = require("../env.json");
