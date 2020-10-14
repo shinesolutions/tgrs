@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import { Config, ForbiddenError, SchemaDirectiveVisitor } from "apollo-server";
-import { MessageDataSource } from "./MessageDataSource";
+import { MessageDataSource } from "./datasources";
 import { isUndefined, isString, isNull } from "lodash";
 import { Object as JsonObject } from "json-typescript";
 import * as fs from "fs";

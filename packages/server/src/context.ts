@@ -1,4 +1,4 @@
-import { MessageDataSource } from "./MessageDataSource";
+import { MessageDataSource } from "./datasources";
 
 // Context that does not include datasources that are added automatically by
 // Apollo
