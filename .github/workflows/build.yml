@@ -23,5 +23,6 @@ jobs:
           yarn install --immutable
           yarn workspace server build
           yarn workspace client build
+          yarn workspace server test
           yarn workspace client test
           yarn workspace integration test
