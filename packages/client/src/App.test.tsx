@@ -29,7 +29,7 @@ afterAll(() => {
 });
 
 describe("App", () => {
-  it("renders learn react link", async () => {
+  it("loads greeting", async () => {
     server.use(
       graphql.query("AppQuery", (_, res, ctx) =>
         res(
@@ -52,6 +52,8 @@ describe("App", () => {
         <App />
       </ApolloProvider>
     );
+    expect(screen.getByRole("alert")).toHaveTextContent("Loading...");
+
     const heading = await waitFor(() => screen.getByRole("heading"));
     expect(heading).toHaveTextContent("Hello, Unit Test!");
   });

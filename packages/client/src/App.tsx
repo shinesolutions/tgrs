@@ -21,9 +21,9 @@ function App() {
   return (
     <div className="App">
       {loading ? (
-        "Loading..."
+        <p role="alert">Loading...</p>
       ) : error ? (
-        "Error!"
+        <p role="alert">Error!</p>
       ) : (
         <h1>{data?.personalizedGreeting}</h1>
       )}
