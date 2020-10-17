@@ -24,7 +24,7 @@ export async function startWebServer({
   const app = express();
 
   // When requested, dynamically generate the environment file
-  app.get("/env.json", (req, res) => {
+  app.get("/env.json", (_, res) => {
     res.send({
       // Just use a dummy key, as tokens won't be verified in this environment
       integrationAuthToken: sign(
