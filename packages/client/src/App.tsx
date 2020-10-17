@@ -20,7 +20,13 @@ function App() {
 
   return (
     <div className="App">
-      {loading ? "Loading..." : error ? "Error!" : data?.personalizedGreeting}
+      {loading ? (
+        "Loading..."
+      ) : error ? (
+        "Error!"
+      ) : (
+        <h1>{data?.personalizedGreeting}</h1>
+      )}
     </div>
   );
 }

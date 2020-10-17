@@ -1,6 +1,6 @@
 import { ApolloServer } from "../../server/node_modules/apollo-server";
 import { createConfig } from "../../server/src/config";
-import { ExpressIntegrationContext } from "../../server/src/ExpressIntegrationContext";
+import { ExpressIntegrationContext } from "../../server/src/express";
 import { TargetPort } from "./TargetPort";
 import { RunningServer } from "./RunningServer";
 import { getRunningServer } from "./getRunningServer";
