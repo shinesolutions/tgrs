@@ -18,11 +18,9 @@ jobs:
         with:
           node-version: "${{ steps.nodenv.outputs.node-version }}"
       # Yarn will also have been installed by actions/setup-node@v1
-      - name: build
-        run: |
-          yarn install --immutable
-          yarn workspace server build
-          yarn workspace client build
-          yarn workspace server test
-          yarn workspace client test
-          yarn workspace integration test
+      - run: yarn install --immutable
+      - run: yarn workspace server build
+      - run: yarn workspace client build
+      - run: yarn workspace server test
+      - run: yarn workspace client test
+      - run: yarn workspace integration test
