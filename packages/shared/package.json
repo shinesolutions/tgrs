@@ -1,0 +1,22 @@
+{
+  "name": "shared",
+  "private": true,
+  "version": "1.0.0",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "devDependencies": {
+    "@types/jsonwebtoken": "^8.3.9",
+    "@types/lodash": "^4.14.150",
+    "json-typescript": "^1.1.2",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.15"
+  },
+  "scripts": {
+    "build": "tsc --declaration",
+    "clean": "rm -rf lib",
+    "watch": "yarn build --watch"
+  }
+}

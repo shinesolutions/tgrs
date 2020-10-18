@@ -27,20 +27,24 @@ general overview of the stack and the decisions behind it, see
 
         ln -sf ./env.integration.json packages/server/env.json
 
-3.  Start the GraphQl server inside an Express instance:
+3.  Build the code that is shared by both the client and server:
+
+        yarn workspace shared build
+
+4.  Start the GraphQl server inside an Express instance:
 
         yarn workspace server start
 
-4.  Set up a client environment file that configures the client to talk to the
+5.  Set up a client environment file that configures the client to talk to the
     GraphQL Express server:
 
         ln -sf ../env/localhost-4000.json packages/client/public/env.json
 
-5.  Start the client:
+6.  Start the client:
 
         yarn workspace client start
 
-6.  Go to http://localhost:3000
+7.  Go to http://localhost:3000
 
 ## Starting the GraphQL Server in a local Lambda
 

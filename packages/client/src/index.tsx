@@ -12,6 +12,7 @@ import {
 import { setContext } from "@apollo/client/link/context";
 import { Value as JsonValue, Object as JsonObject } from "json-typescript";
 import { isArray, isBoolean, isNull, isNumber, isString } from "lodash";
+import { assert, assertIsString } from "shared";
 
 // Use a top-level async immediately-invoked function expression so that we can
 // use `await` inside of it
@@ -66,13 +67,3 @@ import { isArray, isBoolean, isNull, isNumber, isString } from "lodash";
     document.getElementById("root")
   );
 })();
-
-function assertIsString(value: JsonValue): asserts value is string {
-  assert(isString(value), JSON.stringify(value));
-}
-
-function assert(condition: boolean, message: string): asserts condition {
-  if (!condition) {
-    throw new Error(message);
-  }
-}
