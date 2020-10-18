@@ -1,5 +1,4 @@
-import { assert } from "./assert";
-import { isUndefined } from "lodash";
+import { assertIsNotUndefined } from "shared";
 import { Resolvers } from "./__generatedTypes__";
 
 export const resolvers: Resolvers = {
@@ -8,7 +7,7 @@ export const resolvers: Resolvers = {
       return `${await dataSources.message.getMessage()}!`;
     },
     personalizedGreeting: async (_, __, { user, dataSources }) => {
-      assert(!isUndefined(user));
+      assertIsNotUndefined(user);
       return `${await dataSources.message.getMessage()}, ${user.name}!`;
     },
   },

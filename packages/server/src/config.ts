@@ -1,14 +1,12 @@
-import jwt from "jsonwebtoken";
 import { Config, ForbiddenError, SchemaDirectiveVisitor } from "apollo-server";
 import { MessageDataSource } from "./datasources";
-import { isUndefined, isString, isNull } from "lodash";
-import { Object as JsonObject } from "json-typescript";
+import { isUndefined } from "lodash";
 import * as fs from "fs";
 import * as path from "path";
 import { GraphQLField } from "graphql";
 import { resolvers } from "./resolvers";
-import { assert } from "./assert";
 import { BaseContext } from "./context";
+import { assertIsNotUndefined, getUserFromAuthToken } from "shared";
 
 export function createConfig<TIntegrationContext>(
   env: { messageServerUrl?: string },
@@ -19,9 +17,7 @@ export function createConfig<TIntegrationContext>(
 ): Config {
   const messageServerUrl = env.messageServerUrl;
 
-  if (isUndefined(messageServerUrl)) {
-    throw new Error();
-  }
+  assertIsNotUndefined(messageServerUrl);
 
   return {
     typeDefs: fs.readFileSync(path.join(__dirname, "schema.graphql"), "utf8"),
@@ -33,28 +29,10 @@ export function createConfig<TIntegrationContext>(
       message: new MessageDataSource(messageServerUrl),
     }),
     context: function (integrationContext: TIntegrationContext): BaseContext {
-      const authHeader = getHeader(integrationContext, "Authorization");
-
-      let user;
-
-      if (!isUndefined(authHeader)) {
-        const payload = jwt.decode(authHeader);
-        assert(!isNull(payload), authHeader);
-        assert(!isString(payload), authHeader);
-
-        // If we've gotten this far, we will assume that the payload is valid JSON
-        const json: JsonObject = payload;
-
-        const { name } = json;
-
-        // Check that the JSON has the fields we want
-        assert(isString(name), JSON.stringify(name));
-
-        user = { name };
-      }
-
       return {
-        user,
+        user: getUserFromAuthToken(
+          getHeader(integrationContext, "Authorization")
+        ),
       };
     },
   };

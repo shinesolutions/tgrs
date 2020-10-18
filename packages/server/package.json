@@ -20,7 +20,8 @@
     "aws-lambda": "^1.0.6",
     "graphql": "^14.0.0",
     "jsonwebtoken": "^8.5.1",
-    "lodash": "^4.17.20"
+    "lodash": "^4.17.20",
+    "shared": "*"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^1.17.10",
