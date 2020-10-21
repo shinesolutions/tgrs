@@ -4,19 +4,14 @@
  * because it's for development only.
  */
 
-import { ApolloServer } from "apollo-server";
-import { createConfig } from "../src/config";
-import { ExpressIntegrationContext } from "../src/express";
+import { startApolloServer } from "..";
 
-// In development, load the environment information directly from the filesystem
-const env = require("../env.json");
 
-const server = new ApolloServer(
-  createConfig(
-    env,
-    (integrationContext: ExpressIntegrationContext, headerName) =>
-      integrationContext.req.header(headerName)
-  )
-);
+(async () => {
+  // In development, load the environment information directly from the filesystem
+  const env = require("../env.json");
+  await startApolloServer(env);
+  console.log("Ready!")
+})()
 
-server.listen().then(() => console.log("Ready!"));
+
