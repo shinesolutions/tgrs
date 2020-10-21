@@ -1,5 +1,7 @@
 # TGRS Sample Project
 
+![CI](https://github.com/shinesolutions/tgrs/workflows/CI/badge.svg?branch=master)
+
 TGRS stands for [TypeScript](https://www.typescriptlang.org/),
 [GraphQL](https://www.graphql.com/), [React](https://reactjs.org/) and
 [serverless](https://en.wikipedia.org/wiki/Serverless_computing). This is a
