@@ -92,3 +92,11 @@ You can then run the query. For example:
 To run the integration tests:
 
      yarn workspace integration test
+
+## Code Formatting
+
+Note that this project uses [Prettier](https://prettier.io/) to
+format code, and that if incorrectly formatted code is pushed to a
+branch, then that branch's build will fail. Use `yarn format` to
+format your code, or configure your editor to automatically format
+your code using the version of Prettier in this project.
