@@ -10,5 +10,13 @@
     "nohoist": [
       "**/*"
     ]
+  },
+  "dependencies": {
+    "prettier": "^2.1.2"
+  },
+  "scripts": {
+    "prettier": "prettier '{packages/**/{src,environment}/**/*.{ts,tsx},**/*.md}'",
+    "format": "yarn prettier --write",
+    "checkFormatting": "yarn prettier --check"
   }
 }
