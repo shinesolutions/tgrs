@@ -1,1 +1,1 @@
-export { createConfig } from "./config";
+export * from "./config";

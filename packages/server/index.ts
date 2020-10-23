@@ -5,21 +5,21 @@ import { ApolloServer } from "apollo-server";
 // contents of the `apollo-server-express` package.
 import { ExpressContext as ExpressIntegrationContext } from "apollo-server-express/dist/ApolloServer";
 
-import { createConfig } from "./src";
+import { createConfig, Env } from "./src";
 import { ListenOptions } from "net";
 
 /**
  * Starts a stand-alone instance of Apollo Server
  *
  * @param env the env variables to be used by the instance
- * @param opts the listening options to be used by the instance
+ * @param listenOptions the listening options to be used by the instance
  */
-export function startApolloServer(env: any, opts?: ListenOptions) {
+export function startApolloServer(env: Env, listenOptions?: ListenOptions) {
   return new ApolloServer(
     createConfig(
       env,
       (integrationContext: ExpressIntegrationContext, headerName) =>
         integrationContext.req.header(headerName)
     )
-  ).listen(opts);
+  ).listen(listenOptions);
 }

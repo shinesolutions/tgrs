@@ -5,13 +5,25 @@
  */
 
 import { startApolloServer } from "..";
-
+import { Value as JsonValue } from "json-typescript";
+import { isArray, isBoolean, isNull, isNumber, isString } from "lodash";
 
 (async () => {
-  // In development, load the environment information directly from the filesystem
-  const env = require("../env.json");
+  // In development, load the environment information directly from the
+  // filesystem. Assume that it is a valid JSON value.
+  const env: JsonValue = require("../env.json");
+
+  // Check that the env JSON is a plain object
+  if (
+    isString(env) ||
+    isBoolean(env) ||
+    isNull(env) ||
+    isArray(env) ||
+    isNumber(env)
+  ) {
+    throw new Error(JSON.stringify(env));
+  }
+
   await startApolloServer(env);
-  console.log("Ready!")
-})()
-
-
+  console.log("Ready!");
+})();

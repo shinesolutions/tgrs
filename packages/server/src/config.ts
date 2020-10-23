@@ -8,8 +8,12 @@ import { resolvers } from "./resolvers";
 import { BaseContext } from "./context";
 import { assertIsNotUndefined, getUserFromAuthToken } from "shared";
 
+export interface Env {
+  messageServerUrl?: string;
+}
+
 export function createConfig<TIntegrationContext>(
-  env: { messageServerUrl?: string },
+  env: Env,
   getHeader: (
     integrationContext: TIntegrationContext,
     headerName: string
