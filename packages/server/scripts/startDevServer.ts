@@ -4,19 +4,26 @@
  * because it's for development only.
  */
 
-import { ApolloServer } from "apollo-server";
-import { createConfig } from "../src/config";
-import { ExpressIntegrationContext } from "../src/express";
+import { startApolloServer } from "..";
+import { Value as JsonValue } from "json-typescript";
+import { isArray, isBoolean, isNull, isNumber, isString } from "lodash";
 
-// In development, load the environment information directly from the filesystem
-const env = require("../env.json");
+(async () => {
+  // In development, load the environment information directly from the
+  // filesystem. Assume that it is a valid JSON value.
+  const env: JsonValue = require("../env.json");
 
-const server = new ApolloServer(
-  createConfig(
-    env,
-    (integrationContext: ExpressIntegrationContext, headerName) =>
-      integrationContext.req.header(headerName)
-  )
-);
+  // Check that the env JSON is a plain object
+  if (
+    isString(env) ||
+    isBoolean(env) ||
+    isNull(env) ||
+    isArray(env) ||
+    isNumber(env)
+  ) {
+    throw new Error(JSON.stringify(env));
+  }
 
-server.listen().then(() => console.log("Ready!"));
+  await startApolloServer(env);
+  console.log("Ready!");
+})();
