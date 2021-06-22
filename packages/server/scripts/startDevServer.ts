@@ -24,6 +24,6 @@ import { isArray, isBoolean, isNull, isNumber, isString } from "lodash";
     throw new Error(JSON.stringify(env));
   }
 
-  await startApolloServer(env);
-  console.log("Ready!");
+  const serverInfo = await startApolloServer(env, { port: 4000 });
+  console.log(`Ready on port ${serverInfo.port}`);
 })();

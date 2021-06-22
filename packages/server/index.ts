@@ -14,7 +14,7 @@ import { ListenOptions } from "net";
  * @param env the env variables to be used by the instance
  * @param listenOptions the listening options to be used by the instance
  */
-export function startApolloServer(env: Env, listenOptions?: ListenOptions) {
+export function startApolloServer(env: Env, listenOptions: ListenOptions) {
   return new ApolloServer(
     createConfig(
       env,
