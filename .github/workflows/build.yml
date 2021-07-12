@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       # Install the Node version specified in the project `.node-version` file
-      - uses: nodenv/actions/node-version@v2.0.7
+      - uses: nodenv/actions/node-version@v2.0.9
         id: nodenv
       - uses: actions/setup-node@v1
         with:
