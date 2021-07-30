@@ -5,9 +5,11 @@
 TGRS stands for [TypeScript](https://www.typescriptlang.org/),
 [GraphQL](https://www.graphql.com/), [React](https://reactjs.org/) and
 [serverless](https://en.wikipedia.org/wiki/Serverless_computing). This is a
-sample project that demonstrates the key technologies in this stack. For a
-general overview of the stack and the decisions behind it, see
-[Introducing the TGRS stack for web interfaces](https://shinesolutions.com/2021/07/30/introducing-the-tgrs-stack-for-web-interfaces/).
+sample project that demonstrates the key technologies in this stack. 
+
+For a general overview of the stack and the decisions behind it, see
+[Introducing the TGRS stack for web interfaces](https://shinesolutions.com/2021/07/30/introducing-the-tgrs-stack-for-web-interfaces/),
+or check out [this presentation from the React Melbourne Meetup](https://www.youtube.com/watch?v=-Idub5K7K6Q&t=209s).
 
 ## Initial Setup
 
