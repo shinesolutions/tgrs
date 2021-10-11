@@ -9,7 +9,7 @@ import {
   startStubby,
   defaultWebServerPort,
   ephemeralPort,
-} from "../environment";
+} from "../src";
 
 (async function () {
   const stubbyServer = await startStubby({

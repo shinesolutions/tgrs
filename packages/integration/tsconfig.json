@@ -15,5 +15,5 @@
     "noEmit": true
   },
 
-  "include": ["src", "environment"]
+  "include": ["src"]
 }
