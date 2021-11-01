@@ -91,9 +91,23 @@ You can then run the query. For example:
 
 ## Running the integration tests
 
-To run the integration tests:
+Note that the integration tests use a client production build,
 
-     yarn workspace integration test
+1. If you haven't already, build the shared project:
+
+       yarn workspace shared build
+        
+2. If you haven't started the server before, generate types for its GraphQL schema:
+        
+       yarn workspace server codegen
+        
+3. If you haven't already, run a client production build:
+        
+       yarn workspace client build
+
+4. Run the integration tests:
+
+       yarn workspace integration test
 
 ## Code Formatting
 
