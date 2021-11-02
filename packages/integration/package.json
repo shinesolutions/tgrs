@@ -22,6 +22,6 @@
   },
   "scripts": {
     "start": "ts-node ./scripts/start",
-    "startStubby": "stubby --data ./environment/stubbyData.yml"
+    "startStubby": "stubby --data ./src/stubbyData.yml"
   }
 }
