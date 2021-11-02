@@ -18,8 +18,8 @@
     "json-typescript": "^1.1.2",
     "lodash": "^4.17.20",
     "msw": "^0.21.2",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
     "react-scripts": "4.0.3",
     "shared": "*",
     "typescript": "^4.0.3"
