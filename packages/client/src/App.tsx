@@ -1,4 +1,3 @@
-import React from "react";
 import "./App.css";
 import { gql, useQuery } from "@apollo/client";
 import { AppQuery, AppQueryVariables } from "./__generated__/AppQuery";
