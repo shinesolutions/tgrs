@@ -25,4 +25,9 @@ jobs:
       - run: yarn workspace client build
       - run: yarn workspace server test
       - run: yarn workspace client test
-      - run: yarn workspace integration test
+      # Fix version so that it doesn't advance over time unless we want it to
+      - uses: cypress-io/github-action@v2.11.7
+        with:
+          start: yarn workspace integration start
+          wait-on: "http://localhost:5000"
+          command: yarn workspace tests start

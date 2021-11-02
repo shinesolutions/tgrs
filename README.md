@@ -5,7 +5,7 @@
 TGRS stands for [TypeScript](https://www.typescriptlang.org/),
 [GraphQL](https://www.graphql.com/), [React](https://reactjs.org/) and
 [serverless](https://en.wikipedia.org/wiki/Serverless_computing). This is a
-sample project that demonstrates the key technologies in this stack. 
+sample project that demonstrates the key technologies in this stack.
 
 For a general overview of the stack and the decisions behind it, see
 [Introducing the TGRS stack for web interfaces](https://shinesolutions.com/2021/07/30/introducing-the-tgrs-stack-for-web-interfaces/),
@@ -93,21 +93,38 @@ You can then run the query. For example:
 
 Note that the integration tests use a client production build,
 
-1. If you haven't already, build the shared project:
+1.  If you haven't already, build the shared project:
 
-       yarn workspace shared build
-        
-2. If you haven't started the server before, generate types for its GraphQL schema:
-        
-       yarn workspace server codegen
-        
-3. If you haven't already, run a client production build:
-        
-       yarn workspace client build
+        yarn workspace shared build
 
-4. Run the integration tests:
+    Note that if you change anything in the shared workspace, you will need to
+    re-run this.
 
-       yarn workspace integration test
+2.  If you haven't started the server before, generate types for its GraphQL
+    schema:
+
+        yarn workspace server codegen
+
+    Note that if you change anything in the GraphQL schema, you will need to
+    re-run this.
+
+3.  If you haven't already, run a client production build:
+
+        yarn workspace client build
+
+    Note that if you change anything in the client workspace or GraphQL schema,
+    you will need to re-run this.
+
+4.  Start the integration environment:
+
+        yarn workspace integration start
+
+    Note that if you've had to re-run steps 1, 2 or 3, you'll need to re-run
+    this.
+
+5.  Run the tests:
+
+        yarn workspace tests start
 
 ## Code Formatting
 
