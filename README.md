@@ -14,11 +14,15 @@ or check out [this presentation video](https://www.youtube.com/watch?v=-Idub5K7K
 ## Initial Setup
 
 1.  [Install nodenv](https://github.com/nodenv/nodenv#installation)
-2.  [Install yarn 1.x](https://classic.yarnpkg.com/en/docs/install)
-3.  [Install the AWS SAM CLI](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html)
-4.  Run `nodenv install`
-5.  Run `yarn install`
-6.  (Optional but recommended) Install [GraphiQL](https://www.electronjs.org/apps/graphiql)
+2.  Run `nodenv install`
+3.  [Install yarn 1.x](https://classic.yarnpkg.com/en/docs/install). If you used
+    `npm install -g yarn` to install it, make sure you subsequently run:
+
+        nodenv rehash
+
+    before continuing
+
+4.  Run `yarn install`
 
 ## Quick Start
 
@@ -52,8 +56,10 @@ or check out [this presentation video](https://www.youtube.com/watch?v=-Idub5K7K
 
 ## Starting the GraphQL Server in a local Lambda
 
-To start the GraphQL server in a lambda that is accessible to a local instance of API
-Gateway:
+This section assumes you have installed the [AWS SAM CLI](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html)
+
+To start the GraphQL server in a lambda that is accessible to a local instance
+of API Gateway:
 
 1. Run `yarn workspace server build`
 2. Go to `packages/server`
@@ -64,16 +70,20 @@ Gateway:
 
 ## Calling a GraphQL server directly
 
+This section assumes you have installed a GraphQL client like
+[GraphiQL](https://www.electronjs.org/apps/graphiql) or
+[Playground](https://github.com/graphql/graphql-playground).
+
 For endpoints that _don't_ require that there be a logged-in user, just run the
-query in Playground or GraphiQL. For example:
+query in your GraphQL client. For example:
 
         query {
           greeting(language: ENGLISH)
         }
 
 For endpoints that _do_ require there be a logged-in user, you'll need to first
-Configure either Playground or GraphiQL to include an `Authorization` header
-that is an encoded JWT with a field called `name`. In Playground, you can set
+configure your GraphQL client to include an `Authorization` header that is an
+encoded JWT with a field called `name`. For example, in Playground, you can set
 this header with the user name name `John Doe` by adding the following to the
 'HTTP HEADERS' tab:
 
@@ -128,8 +138,7 @@ Note that the integration tests use a client production build,
 
 ## Code Formatting
 
-Note that this project uses [Prettier](https://prettier.io/) to
-format code, and that if incorrectly formatted code is pushed to a
-branch, then that branch's build will fail. Use `yarn format` to
-format your code, or configure your editor to automatically format
-your code using the version of Prettier in this project.
+Note that this project uses [Prettier](https://prettier.io/) to format code, and
+that if incorrectly formatted code is pushed to a branch, then that branch's
+build will fail. Use `yarn format` to format your code, or configure your editor
+to automatically format your code using the version of Prettier in this project.
