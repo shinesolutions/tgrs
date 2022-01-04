@@ -39,6 +39,11 @@ export function createConfig<TIntegrationContext>(
         ),
       };
     },
+    formatError(error) {
+      // Log messages that occur in the server to the console
+      console.error(`Error: ${JSON.stringify(error)}`);
+      return error;
+    },
   };
 }
 
