@@ -7,6 +7,13 @@ TGRS stands for [TypeScript](https://www.typescriptlang.org/),
 [serverless](https://en.wikipedia.org/wiki/Serverless_computing). This is a
 sample project that demonstrates the key technologies in this stack.
 
+> Note that this stack does not support server-side rendering (SSR) out-of-the-box. 
+> For SSR to work, you'd need to introduce an additional server layer, which would 
+> also add extra complexity to your project. If your SEO or performance
+> needs necessitate that you use SSR, I recommend you look at a framework like 
+> [Remix](https://remix.run) or [Next.js](https://nextjs.org). Using these 
+> frameworks may also eliminate the need for you to use GraphQL at all.
+
 For a general overview of the stack and the decisions behind it, see
 [Introducing the TGRS stack for web interfaces](https://shinesolutions.com/2021/07/30/introducing-the-tgrs-stack-for-web-interfaces/),
 or check out [this presentation video](https://www.youtube.com/watch?v=-Idub5K7K6Q&t=209s).
