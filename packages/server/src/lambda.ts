@@ -1,7 +1,10 @@
 import { ApolloServer } from "@apollo/server";
 import { APIGatewayProxyEvent } from "aws-lambda";
 import { Env, createConfig } from "./config";
-import { handlers, startServerAndCreateLambdaHandler } from "@as-integrations/aws-lambda";
+import {
+  handlers,
+  startServerAndCreateLambdaHandler,
+} from "@as-integrations/aws-lambda";
 
 /**
  * Create a basic server, for use with `startServerAndCreateLambdaHandler` function
@@ -25,8 +28,11 @@ export const handler = startServerAndCreateLambdaHandler(
       async (event) => {
         console.log("###? received event body=" + JSON.stringify(event.body));
         // @ts-ignore
-        event.requestContext["http"] = { method: event.requestContext.httpMethod }; //have to do this otherwise error in request handler
+        event.requestContext["http"] = {
+          // @ts-ignore
+          method: event.requestContext.httpMethod,
+        }; //have to do this otherwise error in request handler
       },
-    ]
+    ],
   }
 );
