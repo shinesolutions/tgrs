@@ -12,14 +12,15 @@ import {
 } from "../src";
 
 (async function () {
-  const stubbyServer = await startStubby({
-    targetPort: ephemeralPort,
-  });
+  // const stubbyServer = await startStubby({
+  //   targetPort: ephemeralPort,
+  // });
+  const ep = {hostname: "127.0.0.1", port: 0}; //hardcoded, as the above doesnt work
 
   const graphQlServerEndpoint = (
     await startGraphQlServer({
       targetPort: ephemeralPort,
-      stubbyEndpoint: stubbyServer.endpoint,
+      stubbyEndpoint: ep,
     })
   ).endpoint;
 

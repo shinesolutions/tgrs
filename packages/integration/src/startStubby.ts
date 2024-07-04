@@ -13,7 +13,7 @@ import { getEndpoint } from "./getEndpoint";
  */
 
 export async function startStubby({
-  targetPort,
+  targetPort, // 0
 }: {
   targetPort: TargetPort;
 }): Promise<RunningServer> {
@@ -37,12 +37,11 @@ export async function startStubby({
           fs.readFileSync(path.join(__dirname, "stubbyData.yml"), "utf8")
         ) as StubbyData,
       },
-      (err) => (err ? reject(err) : resolve())
+      (err) => (err ? reject(`${err}`) : resolve("nay error"))
     )
   );
 
-  const stop = promisify(stubby.stop).bind(stubby);
-
+  const stop = promisify(stubby.stop).bind(stubby);  
   process.on("SIGINT", async () => {
     await stop();
 
