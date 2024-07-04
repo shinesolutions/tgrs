@@ -3,6 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=20.0.0 <21.0.0",
+    "npm": "please-use-yarn",
+    "yarn": ">= 1.22.17"
+  },
   "dependencies": {
     "@apollo/client": "^3.8.8",
     "@testing-library/jest-dom": "^5.11.4",
