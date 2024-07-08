@@ -8,21 +8,19 @@ import {
   startGraphQlServer,
   startStubby,
   defaultWebServerPort,
-  ephemeralPort,
 } from "../src";
 
-(async function () {
-  // const stubbyServer = await startStubby({
-  //   targetPort: ephemeralPort,
-  // });
-  const ep = {hostname: "127.0.0.1", port: 0}; //hardcoded, as the above doesnt work
+import getPort from "get-port";
 
-  const graphQlServerEndpoint = (
-    await startGraphQlServer({
-      targetPort: ephemeralPort,
-      stubbyEndpoint: ep,
-    })
-  ).endpoint;
+(async function () {
+  const stubbyEndpoint = await startStubby({
+    targetPort: await getPort(),
+  });
+
+  const graphQlServerEndpoint = await startGraphQlServer({
+    targetPort: await getPort(),
+    stubbyEndpoint,
+  });
 
   await startWebServer({
     targetPort: defaultWebServerPort,

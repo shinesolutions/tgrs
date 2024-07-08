@@ -7,6 +7,6 @@ export class MessageDataSource extends RESTDataSource {
   }
 
   async getMessage() {
-    return "Hello";
+    return this.get("/");
   }
 }

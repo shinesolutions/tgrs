@@ -1,9 +1,6 @@
 import { startLocalApolloServer } from "../../server";
 import { TargetPort } from "./TargetPort";
-import { RunningServer } from "./RunningServer";
 import { Endpoint } from "./Endpoint";
-import { getRunningServer } from "./getRunningServer";
-// import { getRunningServer } from "./getRunningServer";
 
 /**
  * Starts an instance of the GraphQL server that can be used for integration
@@ -15,30 +12,20 @@ export async function startGraphQlServer({
 }: {
   targetPort: TargetPort;
   stubbyEndpoint: Endpoint;
-}): Promise<RunningServer> {
+}): Promise<Endpoint> {
   const name = "GraphQL Server";
   console.log(`${name}: Starting...`);
 
-  const server = await startLocalApolloServer(
+  const hostname = "127.0.0.1";
+
+  await startLocalApolloServer(
     {
       messageServerUrl: `http://${stubbyEndpoint.hostname}:${stubbyEndpoint.port}`,
     },
-    { host: "127.0.0.1", port: targetPort }
+    { host: hostname, port: targetPort }
   );
 
-  // const runningServer = getRunningServer(server);
-  const { url: endpoint } = server;
+  console.log(`${name}: Ready at ${hostname}:${targetPort}`);
 
-  // Shut down the server if somebody kills the process
-  // process.on("SIGINT", async () => {
-  //   await stop();
-  //   console.log(`${name}: Stopped`);
-  // });
-
-  console.log(`${name}: Ready at ${endpoint}`);
-
-  return {
-    endpoint: { hostname: stubbyEndpoint.hostname, port: stubbyEndpoint.port },
-    stop: async () => console.log("non-working function!"),
-  };
+  return { hostname, port: targetPort };
 }
