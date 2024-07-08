@@ -22,14 +22,7 @@ export interface RequestContext {
   user: BaseContext;
 }
 
-export function createConfig<ContextValue>(
-  env: Env,
-  getHeader: (
-    integrationContext: ContextValue,
-    headerName: string
-  ) => string | undefined
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-): ApolloServerOptions<BaseContext> {
+export function createConfig<ContextValue>(): ApolloServerOptions<BaseContext> {
   let schema = makeExecutableSchema({
     typeDefs: [fs.readFileSync(path.join(__dirname, "schema.graphql"), "utf8")],
     resolvers,
