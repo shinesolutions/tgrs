@@ -3,7 +3,7 @@ import { makeExecutableSchema } from "@graphql-tools/schema";
 import * as fs from "fs";
 import * as path from "path";
 import { GraphQLSchema } from "graphql";
-import { mapSchema, getDirectives, MapperKind } from "@graphql-tools/utils";
+import { mapSchema, MapperKind, getDirective } from "@graphql-tools/utils";
 import { resolvers } from "./resolvers";
 import { BaseContext } from "./context";
 import { assertIsNotUndefined } from "shared";
@@ -22,12 +22,15 @@ export interface RequestContext {
   user: BaseContext;
 }
 
-export function createConfig<ContextValue>(): ApolloServerOptions<BaseContext> {
-  let schema = makeExecutableSchema({
-    typeDefs: [fs.readFileSync(path.join(__dirname, "schema.graphql"), "utf8")],
-    resolvers,
-  });
-  /* Directives! */
+export function createConfig(): ApolloServerOptions<BaseContext> {
+  let schema = userRequiredDirective(
+    makeExecutableSchema({
+      typeDefs: [
+        fs.readFileSync(path.join(__dirname, "schema.graphql"), "utf8"),
+      ],
+      resolvers,
+    })
+  );
 
   return {
     schema,
@@ -56,21 +59,17 @@ export function createConfig<ContextValue>(): ApolloServerOptions<BaseContext> {
  * moment just checks for the presence of a user, but in future could be
  * extended to check that the user has particular roles, for example.
  */
-
-function userRequiredDirective(schema: GraphQLSchema, directiveName: string) {
+function userRequiredDirective(schema: GraphQLSchema) {
   return mapSchema(schema, {
     [MapperKind.OBJECT_FIELD]: (fieldConfig) => {
-      const userDirective = getDirectives(schema, fieldConfig, [
-        directiveName,
-      ])?.[0];
+      const userDirective = getDirective(
+        schema,
+        fieldConfig,
+        "requiresUser"
+      )?.[0];
       if (userDirective) {
-        const { resolve: originalResolve } = fieldConfig;
-        fieldConfig.resolve = async function (
-          source: any, //eslint-disable-line @typescript-eslint/no-explicit-any
-          args: any, //eslint-disable-line @typescript-eslint/no-explicit-any
-          context: RequestContext,
-          info
-        ) {
+        const originalResolve = fieldConfig.resolve;
+        fieldConfig.resolve = async function (source, args, context, info) {
           if (isUndefined(context.user)) {
             throw new Error("No user available");
           }
