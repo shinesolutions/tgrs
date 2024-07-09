@@ -1,6 +1,6 @@
 schema: ../server/src/schema.graphql
 generates:
-  ./src/shared/__generated__/:
+  ./src/__generated__/:
     preset: "client"
     documents: ["src/**/*.{ts,tsx}"]
     config:
