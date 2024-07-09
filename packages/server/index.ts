@@ -1,10 +1,6 @@
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
 
-// TODO Try deriving this type programmatically from one of the types exported
-// from the "apollo-server" package, rather than having to dig into the
-// contents of the `apollo-server-express` package.
-
 import { createConfig, Env } from "./src";
 import { ListenOptions } from "net";
 import { createContext } from "./src/createContext";
