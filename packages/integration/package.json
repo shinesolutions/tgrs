@@ -24,8 +24,5 @@
   "scripts": {
     "start": "tsx ./scripts/start",
     "startStubby": "stubby --data ./src/stubbyData.yml"
-  },
-  "devDependencies": {
-    "ts-node": "^10.9.2"
   }
 }
