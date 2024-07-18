@@ -23,7 +23,6 @@ jobs:
       - run: yarn workspace shared build
       - run: yarn workspace server build
       - run: yarn workspace client build
-      - run: yarn add cypress --dev
       # Fix version so that it doesn't advance over time unless we want it to
       - uses: cypress-io/github-action@v6
         with:
