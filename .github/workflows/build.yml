@@ -14,16 +14,16 @@ jobs:
       # Install the Node version specified in the project `.node-version` file
       - uses: nodenv/actions/node-version@v2.0.9
         id: nodenv
-      - uses: actions/setup-node@v1
-        with:
-          node-version: "${{ steps.nodenv.outputs.node-version }}"
-      # Yarn will also have been installed by actions/setup-node@v1
-      - run: yarn install
-      - run: yarn checkFormatting
-      - run: yarn workspace shared build
-      - run: yarn workspace server build
-      - run: yarn workspace client build
-      # Fix version so that it doesn't advance over time unless we want it to
+      # - uses: actions/setup-node@v1
+      #   with:
+      #     node-version: "${{ steps.nodenv.outputs.node-version }}"
+      # # Yarn will also have been installed by actions/setup-node@v1
+      # - run: yarn install
+      # - run: yarn checkFormatting
+      # - run: yarn workspace shared build
+      # - run: yarn workspace server build
+      # - run: yarn workspace client build
+      # # Fix version so that it doesn't advance over time unless we want it to
       - uses: cypress-io/github-action@v6
         with:
           start: yarn workspace integration start
