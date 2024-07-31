@@ -1,48 +1,55 @@
-import { Config, ForbiddenError, SchemaDirectiveVisitor } from "apollo-server";
-import { MessageDataSource } from "./datasources";
 import { isUndefined } from "lodash";
+import { makeExecutableSchema } from "@graphql-tools/schema";
 import * as fs from "fs";
 import * as path from "path";
-import { GraphQLField } from "graphql";
+import { GraphQLSchema } from "graphql";
+import { mapSchema, MapperKind, getDirective } from "@graphql-tools/utils";
 import { resolvers } from "./resolvers";
 import { BaseContext } from "./context";
-import { assertIsNotUndefined, getUserFromAuthToken } from "shared";
+import { assertIsNotUndefined } from "shared";
+
+import { ApolloServerErrorCode } from "@apollo/server/errors";
+import { ApolloServerOptions } from "@apollo/server";
 
 export interface Env {
   messageServerUrl?: string;
 }
 
-export function createConfig<TIntegrationContext>(
-  env: Env,
-  getHeader: (
-    integrationContext: TIntegrationContext,
-    headerName: string
-  ) => string | undefined
-): Config {
-  const messageServerUrl = env.messageServerUrl;
+/**
+ * The context information that needs to be extracted from each incoming request
+ */
+export interface RequestContext {
+  user: BaseContext;
+}
 
-  assertIsNotUndefined(messageServerUrl);
+export function createConfig(): ApolloServerOptions<BaseContext> {
+  let schema = userRequiredDirective(
+    makeExecutableSchema({
+      typeDefs: [
+        fs.readFileSync(path.join(__dirname, "schema.graphql"), "utf8"),
+      ],
+      resolvers,
+    })
+  );
 
   return {
-    typeDefs: fs.readFileSync(path.join(__dirname, "schema.graphql"), "utf8"),
-    resolvers,
-    schemaDirectives: {
-      requiresUser: UserDirective,
-    },
-    dataSources: () => ({
-      message: new MessageDataSource(messageServerUrl),
-    }),
-    context: function (integrationContext: TIntegrationContext): BaseContext {
-      return {
-        user: getUserFromAuthToken(
-          getHeader(integrationContext, "Authorization")
-        ),
-      };
-    },
-    formatError(error) {
-      // Log messages that occur in the server to the console
-      console.error(`Error: ${JSON.stringify(error)}`);
-      return error;
+    schema,
+    includeStacktraceInErrorResponses: false,
+    formatError: (gqlError) => {
+      assertIsNotUndefined(gqlError.extensions);
+      if (
+        gqlError.extensions.code ===
+        ApolloServerErrorCode.GRAPHQL_VALIDATION_FAILED
+      ) {
+        return {
+          ...gqlError,
+          // Return a less descriptive error message to client, if desired.
+          // Ensure the client gets only necessary amount of information needed
+          // below can be uncommented to give a less descriptive message in this validation error case
+          // message: "Your query doesn't match the schema. Try double-checking it!",
+        };
+      }
+      return gqlError;
     },
   };
 }
@@ -52,17 +59,24 @@ export function createConfig<TIntegrationContext>(
  * moment just checks for the presence of a user, but in future could be
  * extended to check that the user has particular roles, for example.
  */
-class UserDirective extends SchemaDirectiveVisitor {
-  // Use `any` for the source as we don't care what it is
-  visitFieldDefinition(field: GraphQLField<any, BaseContext>) {
-    // Override the resolver for the field so that, if no user is available,
-    // an error is raised
-    const { resolve: originalResolve } = field;
-    field.resolve = async function (source, args, context, info) {
-      if (isUndefined(context.user)) {
-        throw new ForbiddenError("No user available");
+function userRequiredDirective(schema: GraphQLSchema) {
+  return mapSchema(schema, {
+    [MapperKind.OBJECT_FIELD]: (fieldConfig) => {
+      const userDirective = getDirective(
+        schema,
+        fieldConfig,
+        "requiresUser"
+      )?.[0];
+      if (userDirective) {
+        const originalResolve = fieldConfig.resolve;
+        fieldConfig.resolve = async function (source, args, context, info) {
+          if (isUndefined(context.user)) {
+            throw new Error("No user available");
+          }
+          return originalResolve?.call(this, source, args, context, info);
+        };
       }
-      return originalResolve?.call(this, source, args, context, info);
-    };
-  }
+      return fieldConfig;
+    },
+  });
 }

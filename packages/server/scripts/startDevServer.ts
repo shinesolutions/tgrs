@@ -4,7 +4,7 @@
  * because it's for development only.
  */
 
-import { startApolloServer } from "..";
+import { startLocalApolloServer } from "..";
 import { Value as JsonValue } from "json-typescript";
 import { isArray, isBoolean, isNull, isNumber, isString } from "lodash";
 
@@ -24,6 +24,6 @@ import { isArray, isBoolean, isNull, isNumber, isString } from "lodash";
     throw new Error(JSON.stringify(env));
   }
 
-  const serverInfo = await startApolloServer(env, { port: 4000 });
-  console.log(`Ready on port ${serverInfo.port}`);
+  const serverInfo = await startLocalApolloServer(env, { port: 4000 });
+  console.log(`🚀 on ${serverInfo.url}`);
 })();

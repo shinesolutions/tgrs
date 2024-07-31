@@ -1,16 +1,27 @@
-import { ApolloServer } from "apollo-server-lambda";
-import { APIGatewayProxyEvent } from "aws-lambda";
-import { createConfig } from "./config";
+import { ApolloServer } from "@apollo/server";
+import {
+  handlers,
+  startServerAndCreateLambdaHandler,
+} from "@as-integrations/aws-lambda";
+import { createConfig } from "./index";
+/**
+ * Create a basic server, for use with `startServerAndCreateLambdaHandler` function
+ */
+const server = new ApolloServer(createConfig());
 
-const server = new ApolloServer(
-  createConfig(
-    // Get environment-specific information from environment variables
-    process.env,
-    (integrationContext: { event: APIGatewayProxyEvent }, headerName) =>
-      // Because we're running in an AWS Lambda, extract headers from the
-      // lambda event
-      integrationContext.event.headers[headerName]
-  )
+export const handler = startServerAndCreateLambdaHandler(
+  server,
+  handlers.createAPIGatewayProxyEventV2RequestHandler(),
+  {
+    middleware: [
+      async (event) => {
+        console.log("###? received event body=" + JSON.stringify(event.body));
+        // @ts-ignore
+        event.requestContext["http"] = {
+          // @ts-ignore
+          method: event.requestContext.httpMethod,
+        }; //have to do this otherwise error in request handler
+      },
+    ],
+  }
 );
-
-exports.handler = server.createHandler();

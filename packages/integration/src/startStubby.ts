@@ -4,8 +4,7 @@ import * as yaml from "js-yaml";
 import * as fs from "fs";
 import * as path from "path";
 import { promisify } from "util";
-import { RunningServer } from "./RunningServer";
-import { getEndpoint } from "./getEndpoint";
+import { Endpoint } from "./Endpoint";
 
 /**
  * @param {./TargetPort} targetPort the port to run the server on
@@ -16,7 +15,7 @@ export async function startStubby({
   targetPort,
 }: {
   targetPort: TargetPort;
-}): Promise<RunningServer> {
+}): Promise<Endpoint> {
   const name = `Stubby`;
 
   console.log(`${name}: Starting...`);
@@ -25,9 +24,12 @@ export async function startStubby({
 
   promisify(stubby.start).bind(stubby);
 
+  const hostname = "127.0.0.1";
+
   await new Promise((resolve, reject) =>
     stubby.start(
       {
+        location: hostname,
         stubs: targetPort,
         // Always start admin and TLS on ephemeral ports to avoid issues
         // when running stub API servers concurrently
@@ -37,21 +39,17 @@ export async function startStubby({
           fs.readFileSync(path.join(__dirname, "stubbyData.yml"), "utf8")
         ) as StubbyData,
       },
-      (err) => (err ? reject(err) : resolve())
+      (err) => (err ? reject(`${err}`) : resolve("nay error"))
     )
   );
 
-  const stop = promisify(stubby.stop).bind(stubby);
-
   process.on("SIGINT", async () => {
-    await stop();
+    await promisify(stubby.stop).bind(stubby)();
 
     console.log(`${name}: Stopped`);
   });
 
-  const endpoint = getEndpoint(stubby.stubsPortal);
+  console.log(`${name}: Ready at ${hostname}:${targetPort}`);
 
-  console.log(`${name}: Ready at ${endpoint.hostname}:${endpoint.port}`);
-
-  return { stop, endpoint };
+  return { hostname, port: targetPort };
 }

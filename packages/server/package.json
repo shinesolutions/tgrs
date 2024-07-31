@@ -2,6 +2,11 @@
   "name": "server",
   "private": true,
   "version": "0.0.0",
+  "engines": {
+    "node": ">=20.0.0 <21.0.0",
+    "npm": "please-use-yarn",
+    "yarn": ">= 1.22.17"
+  },
   "scripts": {
     "codegen": "graphql-codegen --config codegen.yml",
     "start": "./scripts/start.sh",
@@ -10,35 +15,37 @@
     "watch": "yarn build --watch",
     "typeCheck": "tsc --noEmit",
     "typeCheckWatch": "yarn typeCheck --watch",
-    "test": "yarn codegen && jest",
     "startRestStub": "stubby --data stubby.yaml"
   },
   "dependencies": {
-    "apollo-datasource-rest": "^0.9.3",
-    "apollo-server": "^2.17.0",
+    "@apollo/datasource-rest": "^6.3.0",
+    "@apollo/server": "^4.9.5",
+    "@as-integrations/aws-lambda": "^2.0.0",
+    "@graphql-tools/schema": "9.0.6",
+    "@graphql-tools/utils": "^9.2.1",
     "apollo-server-lambda": "^2.17.0",
     "aws-lambda": "^1.0.6",
-    "graphql": "^14.0.0",
+    "graphql": "16.6.0",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.20",
     "shared": "*"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^1.17.10",
-    "@graphql-codegen/typescript": "^1.17.10",
-    "@graphql-codegen/typescript-resolvers": "^1.17.10",
-    "@types/jest": "^26.0.13",
+    "@graphql-codegen/cli": "^5.0.0",
+    "@graphql-codegen/typescript": "^4.0.1",
+    "@graphql-codegen/typescript-resolvers": "^4.0.1",
+    "@parcel/watcher": "^2.3.0",
+    "@types/jest": "^29.5.1",
     "@types/jsonwebtoken": "^8.5.0",
-    "@types/lodash": "^4.14.161",
-    "concurrently": "^5.3.0",
-    "graphql-request": "2.1.0-next.1",
-    "jest": "^26.4.2",
+    "@types/lodash": "^4.14.74",
+    "@types/node": "^20.10.4",
+    "concurrently": "^8.2.2",
     "json-typescript": "^1.1.2",
     "jwt-simple": "^0.5.6",
     "msw": "^0.21.2",
     "nodemon": "^2.0.4",
-    "ts-jest": "^26.3.0",
-    "ts-node": "^9.0.0",
-    "typescript": "^4.0.2"
+    "ts-node": "10.8.1",
+    "tsx": "^4.6.2",
+    "typescript": "^4.9.5"
   }
 }

@@ -3,9 +3,8 @@ import handler from "serve-handler";
 import http from "http";
 import { TargetPort } from "./TargetPort";
 import { Endpoint } from "./Endpoint";
-import { RunningServer } from "./RunningServer";
-import { getRunningServer } from "./getRunningServer";
 import { sign } from "jsonwebtoken";
+
 /**
  * Starts up a web server that serves up the built version of the web
  * application, as well as an environment config file
@@ -16,7 +15,7 @@ export async function startWebServer({
 }: {
   targetPort: TargetPort;
   graphQlServerEndpoint: Endpoint;
-}): Promise<RunningServer> {
+}): Promise<Endpoint> {
   const name = "Web Server";
 
   console.log(`${name}: Starting...`);
@@ -51,20 +50,22 @@ export async function startWebServer({
 
   const server = http.createServer(app);
 
+  const hostname = "127.0.0.1";
   await new Promise((resolve) =>
-    server.listen({ host: "127.0.0.1", port: targetPort }, resolve)
+    server.listen({ host: hostname, port: targetPort }, () => resolve("Ready"))
   );
 
-  const runningServer = getRunningServer(server);
-  const { endpoint, stop } = runningServer;
+  function close() {
+    server.close(() => {
+      console.log(`${name}: Stopped`);
+    });
+  }
 
   // Shut down the server if somebody kills the process
-  process.on("SIGINT", async () => {
-    await stop();
-    console.log(`${name}: Stopped`);
-  });
+  process.on("SIGTERM", close);
+  process.on("SIGINT", close);
 
-  console.log(`${name}: Ready at ${endpoint.hostname}:${endpoint.port}`);
+  console.log(`${name}: Ready at ${hostname}:${targetPort}`);
 
-  return runningServer;
+  return { hostname, port: targetPort };
 }

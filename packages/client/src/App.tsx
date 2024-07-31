@@ -1,18 +1,18 @@
+import { graphql } from "./__generated__";
+import { Language } from "./__generated__/graphql";
 import "./App.css";
-import { gql, useQuery } from "@apollo/client";
-import { AppQuery, AppQueryVariables } from "./__generated__/AppQuery";
-import { Language } from "./__generated__/globalTypes";
+import { useQuery } from "@apollo/client";
 
 function App() {
-  const { data, loading, error } = useQuery<AppQuery, AppQueryVariables>(
-    gql`
+  const { data, loading, error } = useQuery(
+    graphql(`
       query AppQuery($language: Language!) {
         personalizedGreeting(language: $language)
       }
-    `,
+    `),
     {
       variables: {
-        language: Language.ENGLISH,
+        language: Language.English,
       },
     }
   );
