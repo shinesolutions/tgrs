@@ -12,11 +12,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       # Install the Node version specified in the project `.node-version` file
-      - uses: nodenv/actions/node-version@v2.0.9
+      - uses: nodenv/actions/node-version@v3
         id: nodenv
-      # - uses: actions/setup-node@v1
-      #   with:
-      #     node-version: "${{ steps.nodenv.outputs.node-version }}"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "${{ steps.nodenv.outputs.node-version }}"
       # # Yarn will also have been installed by actions/setup-node@v1
       # - run: yarn install
       # - run: yarn checkFormatting
