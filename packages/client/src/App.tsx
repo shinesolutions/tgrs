@@ -4,6 +4,8 @@ import "./App.css";
 import { useQuery } from "@apollo/client";
 
 function App() {
+  console.log("");
+
   const { data, loading, error } = useQuery(
     graphql(`
       query AppQuery($language: Language!) {
