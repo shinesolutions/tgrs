@@ -6,20 +6,20 @@
 import {
   startWebServer,
   startGraphQlServer,
-  startStubby,
   defaultWebServerPort,
 } from "../src";
+import { startMockServer } from "../src/startMockServer";
 
 import getPort from "get-port";
 
 (async function () {
-  const stubbyEndpoint = await startStubby({
+  const mockServerEndpoint = await startMockServer({
     targetPort: await getPort(),
   });
 
   const graphQlServerEndpoint = await startGraphQlServer({
     targetPort: await getPort(),
-    stubbyEndpoint,
+    stubbyEndpoint: mockServerEndpoint,
   });
 
   await startWebServer({
