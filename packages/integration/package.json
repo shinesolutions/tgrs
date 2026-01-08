@@ -23,7 +23,7 @@
     "server": "*",
     "stubby": "^5.0.0",
     "tsx": "^4.6.2",
-    "typescript": "^5.7.2"
+    "typescript": "^5.9.3"
   },
   "scripts": {
     "startStubby": "tsx ./scripts/start"
