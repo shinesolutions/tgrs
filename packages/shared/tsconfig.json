@@ -1,5 +1,11 @@
 {
   "extends": "../../tsconfig.json",
   "include": ["src"],
-  "compilerOptions": { "outDir": "lib", "moduleResolution": "Node", "module": "ES6", "target": "ES6" }
+  "compilerOptions": {
+    "outDir": "lib",
+    "moduleResolution": "Node",
+    "module": "ES6",
+    "target": "ES2018",
+    "lib": ["ES2018", "DOM"]
+  }
 }

@@ -1,7 +1,6 @@
-# Does a production build of the server. Any arguments will be passed onto 
-# the TypeScript compiler.
+# Does a production build of the server using tsup
 set -o errexit
-mkdir -p dist
-cp -r node_modules src/schema.graphql ./dist
 yarn codegen
-tsc $1
+tsup
+# Copy node_modules to dist for Lambda deployment
+cp -r node_modules ./dist

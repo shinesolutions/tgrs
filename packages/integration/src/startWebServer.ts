@@ -3,7 +3,7 @@ import handler from "serve-handler";
 import http from "http";
 import { TargetPort } from "./TargetPort";
 import { Endpoint } from "./Endpoint";
-import { sign } from "jsonwebtoken";
+import { SignJWT } from "jose";
 
 /**
  * Starts up a web server that serves up the built version of the web
@@ -23,15 +23,15 @@ export async function startWebServer({
   const app = express();
 
   // When requested, dynamically generate the environment file
-  app.get("/env.json", (_, res) => {
+  app.get("/env.json", async (_, res) => {
+    // Just use a dummy key, as tokens won't be verified in this environment
+    const secret = new TextEncoder().encode("dummySecret");
+    const integrationAuthToken = await new SignJWT({ name: "John Doe" })
+      .setProtectedHeader({ alg: "HS256" })
+      .sign(secret);
+
     res.send({
-      // Just use a dummy key, as tokens won't be verified in this environment
-      integrationAuthToken: sign(
-        {
-          name: "John Doe",
-        },
-        "dummySecret"
-      ),
+      integrationAuthToken,
       serverUri: `http://${graphQlServerEndpoint.hostname}:${graphQlServerEndpoint.port}`,
     });
   });
