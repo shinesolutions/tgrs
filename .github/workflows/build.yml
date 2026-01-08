@@ -11,12 +11,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      # Install the Node version specified in the project `.node-version` file
-      - uses: nodenv/actions/node-version@v3
-        id: nodenv
+      # Install the Node version specified in the project `.nvmrc` file
       - uses: actions/setup-node@v4
         with:
-          node-version: "${{ steps.nodenv.outputs.node-version }}"
+          node-version-file: ".nvmrc"
       # # Yarn will also have been installed by actions/setup-node@v1
       # - run: yarn install
       # - run: yarn checkFormatting
