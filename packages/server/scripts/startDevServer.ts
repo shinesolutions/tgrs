@@ -5,24 +5,15 @@
  */
 
 import { startLocalApolloServer } from "..";
-import { Value as JsonValue } from "json-typescript";
-import { isArray, isBoolean, isNull, isNumber, isString } from "lodash";
+import { envSchema } from "../src";
 
 (async () => {
   // In development, load the environment information directly from the
-  // filesystem. Assume that it is a valid JSON value.
-  const env: JsonValue = require("../env.json");
+  // filesystem and validate it with Zod
+  const rawEnv = require("../env.json");
 
-  // Check that the env JSON is a plain object
-  if (
-    isString(env) ||
-    isBoolean(env) ||
-    isNull(env) ||
-    isArray(env) ||
-    isNumber(env)
-  ) {
-    throw new Error(JSON.stringify(env));
-  }
+  // Validate and parse the environment configuration
+  const env = envSchema.parse(rawEnv);
 
   const serverInfo = await startLocalApolloServer(env, { port: 4000 });
   console.log(`🚀 on ${serverInfo.url}`);

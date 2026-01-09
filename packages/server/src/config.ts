@@ -10,10 +10,13 @@ import { assertIsNotUndefined } from "shared";
 
 import { ApolloServerErrorCode } from "@apollo/server/errors";
 import { ApolloServerOptions } from "@apollo/server";
+import z from "zod";
 
-export interface Env {
-  messageServerUrl?: string;
-}
+// Define the environment schema with Zod
+export const envSchema = z.object({
+  messageServerUrl: z.url("messageServerUrl must be a valid URL"),
+});
+export type Env = z.infer<typeof envSchema>;
 
 /**
  * The context information that needs to be extracted from each incoming request
