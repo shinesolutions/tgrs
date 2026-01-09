@@ -33,33 +33,40 @@ or check out [this presentation video](https://www.youtube.com/watch?v=-Idub5K7K
 
 ## Quick Start
 
-1.  Start the integration environment stub REST server:
+1.  The server will use the following port mapping to reach the mock integration server:
+
+        {
+          "messageServerUrl": "http://localhost:8882"
+        }
+
+    The integration environment will read this file in Step 2 and hopefully use the specified port (`8882` currently) for the mock server.
+
+2.  Start the integration environment stub REST server:
 
         yarn workspace integration start
 
-2.  Set up a server environment file that configures the server to talk to the
-    integration environment's stub REST server:
+3.  Set up a server environment file that configures the server to talk to the integration environment's stub REST server. If you find that Step 2 produces an error, update `env.integration.json` to the port that was logged above.
 
         ln -sf ./env.integration.json packages/server/env.json
 
-3.  Build the code that is shared by both the client and server:
+4.  Build the code that is shared by both the client and server:
 
         yarn workspace shared build
 
-4.  Start the GraphQl server inside an Express instance:
+5.  Start the GraphQl server inside an Express instance:
 
         yarn workspace server start
 
-5.  Set up a client environment file that configures the client to talk to the
+6.  Set up a client environment file that configures the client to talk to the
     GraphQL Express server:
 
         ln -sf ../env/localhost-4000.json packages/client/public/env.json
 
-6.  Start the client:
+7.  Start the client:
 
         yarn workspace client start
 
-7.  Go to http://localhost:3000
+8.  Go to http://localhost:3000
 
 ## Starting the GraphQL Server in a local Lambda
 

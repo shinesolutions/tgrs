@@ -1,11 +1,8 @@
-import React from "react";
-import {
-  ApolloClient,
-  ApolloProvider,
-  HttpLink,
-  InMemoryCache,
-} from "@apollo/client";
-import { render, waitFor, screen } from "@testing-library/react";
+import { ApolloClient, HttpLink, InMemoryCache } from "@apollo/client";
+import { ApolloProvider } from "@apollo/client/react";
+import { render } from "@testing-library/react";
+import { screen, waitFor } from "@testing-library/dom";
+import { describe, it, expect, beforeAll, afterEach, afterAll } from "vitest";
 import App from "./App";
 import { setupServer } from "msw/node";
 import { graphql } from "msw";

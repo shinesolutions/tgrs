@@ -1,7 +1,7 @@
 import { graphql } from "./__generated__";
 import { Language } from "./__generated__/graphql";
 import "./App.css";
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 
 function App() {
   const { data, loading, error } = useQuery(
