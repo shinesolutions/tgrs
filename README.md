@@ -39,13 +39,15 @@ or check out [this presentation video](https://www.youtube.com/watch?v=-Idub5K7K
           "messageServerUrl": "http://localhost:8882"
         }
 
-    The integration environment will read this file in Step 2 and hopefully use the specified port (`8882` currently) for the mock server.
+    In Step 2 the integration environment will read this file and use specified port (configured `8882`) for the mock server.
 
 2.  Start the integration environment stub REST server:
 
         yarn workspace integration start
 
-3.  Set up a server environment file that configures the server to talk to the integration environment's stub REST server. If you find that Step 2 produces an error, update `env.integration.json` to the port that was logged above.
+3.  Set up a server environment file that configures the server to talk to the integration environment's stub REST server.
+
+    Note: If you found that Step 2 produces an error, update `env.integration.json` to the port that was logged above, before running:
 
         ln -sf ./env.integration.json packages/server/env.json
 
