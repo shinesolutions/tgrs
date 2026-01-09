@@ -41,11 +41,11 @@ or check out [this presentation video](https://www.youtube.com/watch?v=-Idub5K7K
 
     In Step 2 the integration environment will read this file and use specified port (configured `8882`) for the mock server.
 
-2.  Start the integration environment stub REST server:
+2.  Start the integration environment mock REST server:
 
         yarn workspace integration start
 
-3.  Set up a server environment file that configures the server to talk to the integration environment's stub REST server.
+3.  Set up a server environment file that configures the server to talk to the integration environment's mock REST server.
 
     Note: If you found that Step 2 produces an error, update `env.integration.json` to the port that was logged above, before running:
 
@@ -148,7 +148,7 @@ Note that the integration tests use a client production build,
     Note that if you've had to re-run steps 1, 2 or 3, you'll need to re-run
     this.
 
-5.  Run the tests:
+5.  Lastly, in another terminal, Run:
 
         yarn workspace tests start
 
