@@ -7,11 +7,11 @@ TGRS stands for [TypeScript](https://www.typescriptlang.org/),
 [serverless](https://en.wikipedia.org/wiki/Serverless_computing). This is a
 sample project that demonstrates the key technologies in this stack.
 
-> Note that this stack does not support server-side rendering (SSR) out-of-the-box. 
-> For SSR to work, you'd need to introduce an additional server layer, which would 
+> Note that this stack does not support server-side rendering (SSR) out-of-the-box.
+> For SSR to work, you'd need to introduce an additional server layer, which would
 > also add extra complexity to your project. If your SEO or performance
-> needs necessitate that you use SSR, I recommend you look at a framework like 
-> [Remix](https://remix.run) or [Next.js](https://nextjs.org). Using these 
+> needs necessitate that you use SSR, I recommend you look at a framework like
+> [Remix](https://remix.run) or [Next.js](https://nextjs.org). Using these
 > frameworks may also eliminate the need for you to use GraphQL at all.
 
 For a general overview of the stack and the decisions behind it, see
@@ -35,7 +35,7 @@ or check out [this presentation video](https://www.youtube.com/watch?v=-Idub5K7K
 
 1.  Start the integration environment stub REST server:
 
-        yarn workspace integration startStubby
+        yarn workspace integration start
 
 2.  Set up a server environment file that configures the server to talk to the
     integration environment's stub REST server:

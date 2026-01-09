@@ -19,7 +19,7 @@ import getPort from "get-port";
 
   const graphQlServerEndpoint = await startGraphQlServer({
     targetPort: await getPort(),
-    stubbyEndpoint: mockServerEndpoint,
+    mockServerEndpoint,
   });
 
   await startWebServer({

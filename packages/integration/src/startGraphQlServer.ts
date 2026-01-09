@@ -8,10 +8,10 @@ import { Endpoint } from "./Endpoint";
  */
 export async function startGraphQlServer({
   targetPort,
-  stubbyEndpoint,
+  mockServerEndpoint,
 }: {
   targetPort: TargetPort;
-  stubbyEndpoint: Endpoint;
+  mockServerEndpoint: Endpoint;
 }): Promise<Endpoint> {
   const name = "GraphQL Server";
   console.log(`${name}: Starting...`);
@@ -20,7 +20,7 @@ export async function startGraphQlServer({
 
   await startLocalApolloServer(
     {
-      messageServerUrl: `http://${stubbyEndpoint.hostname}:${stubbyEndpoint.port}`,
+      messageServerUrl: `http://${mockServerEndpoint.hostname}:${mockServerEndpoint.port}`,
     },
     { host: hostname, port: targetPort }
   );

@@ -14,8 +14,7 @@
     "clean": "./scripts/clean.sh",
     "watch": "tsup --watch",
     "typeCheck": "tsc --noEmit",
-    "typeCheckWatch": "yarn typeCheck --watch",
-    "startRestStub": "stubby --data stubby.yaml"
+    "typeCheckWatch": "yarn typeCheck --watch"
   },
   "dependencies": {
     "@apollo/datasource-rest": "^6.3.0",

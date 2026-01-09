@@ -5,7 +5,7 @@ import { mockRoutes } from "./mockData";
 
 /**
  * Starts a simple Express-based mock server
- * Uses declarative route configuration from mockData.ts, akin to Stubby
+ * Uses declarative route configuration from mockData.ts
  * @param {./TargetPort} targetPort the port to run the server on
  * @return {Promise} resolves with the endpoint the server is running on
  */

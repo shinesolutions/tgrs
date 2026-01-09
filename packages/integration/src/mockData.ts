@@ -1,6 +1,6 @@
 /**
  * Mock server configuration - declarative route definitions
- * attempted 1:1 with stubbyData.yml
+ * attempted 1:1 with a stubbyData configuration
  */
 
 export interface MockRoute {

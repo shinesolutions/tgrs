@@ -27,6 +27,6 @@ jobs:
       - uses: cypress-io/github-action@v6
         with:
           install: false
-          start: yarn workspace integration startStubby
+          start: yarn workspace integration start
           wait-on: "http://localhost:5000"
           command: yarn workspace tests start
