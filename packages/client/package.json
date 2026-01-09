@@ -17,7 +17,7 @@
     "graphql": "16.6.0",
     "json-typescript": "^1.1.2",
     "lodash": "^4.17.20",
-    "msw": "^0.21.2",
+    "msw": "^2.12.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "shared": "*",
