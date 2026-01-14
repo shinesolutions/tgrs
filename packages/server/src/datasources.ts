@@ -1,4 +1,4 @@
-import { RESTDataSource } from "apollo-datasource-rest";
+import { RESTDataSource } from "@apollo/datasource-rest";
 
 export class MessageDataSource extends RESTDataSource {
   constructor(baseUrl: string) {

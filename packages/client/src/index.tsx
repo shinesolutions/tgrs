@@ -1,11 +1,10 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import {
   ApolloClient,
   ApolloLink,
-  ApolloProvider,
   HttpLink,
   InMemoryCache,
 } from "@apollo/client";
@@ -13,6 +12,7 @@ import { setContext } from "@apollo/client/link/context";
 import { Value as JsonValue, Object as JsonObject } from "json-typescript";
 import { isArray, isBoolean, isNull, isNumber, isString } from "lodash";
 import { assert, assertIsString } from "shared";
+import { ApolloProvider } from "@apollo/client/react";
 
 // Use a top-level async immediately-invoked function expression so that we can
 // use `await` inside of it
@@ -40,7 +40,11 @@ import { assert, assertIsString } from "shared";
     JSON.stringify(integrationAuthToken)
   );
 
-  ReactDOM.render(
+  const rootElement = document.getElementById("root");
+  if (!rootElement) throw new Error("Root element not found");
+
+  const root = createRoot(rootElement);
+  root.render(
     <React.StrictMode>
       <ApolloProvider
         client={
@@ -63,7 +67,6 @@ import { assert, assertIsString } from "shared";
       >
         <App />
       </ApolloProvider>
-    </React.StrictMode>,
-    document.getElementById("root")
+    </React.StrictMode>
   );
 })();

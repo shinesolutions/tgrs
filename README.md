@@ -7,11 +7,11 @@ TGRS stands for [TypeScript](https://www.typescriptlang.org/),
 [serverless](https://en.wikipedia.org/wiki/Serverless_computing). This is a
 sample project that demonstrates the key technologies in this stack.
 
-> Note that this stack does not support server-side rendering (SSR) out-of-the-box. 
-> For SSR to work, you'd need to introduce an additional server layer, which would 
+> Note that this stack does not support server-side rendering (SSR) out-of-the-box.
+> For SSR to work, you'd need to introduce an additional server layer, which would
 > also add extra complexity to your project. If your SEO or performance
-> needs necessitate that you use SSR, I recommend you look at a framework like 
-> [Remix](https://remix.run) or [Next.js](https://nextjs.org). Using these 
+> needs necessitate that you use SSR, I recommend you look at a framework like
+> [Remix](https://remix.run) or [Next.js](https://nextjs.org). Using these
 > frameworks may also eliminate the need for you to use GraphQL at all.
 
 For a general overview of the stack and the decisions behind it, see
@@ -33,33 +33,42 @@ or check out [this presentation video](https://www.youtube.com/watch?v=-Idub5K7K
 
 ## Quick Start
 
-1.  Start the integration environment stub REST server:
+1.  The server will use the following port mapping to reach the mock integration server:
 
-        yarn workspace integration startStubby
+        {
+          "messageServerUrl": "http://localhost:8882"
+        }
 
-2.  Set up a server environment file that configures the server to talk to the
-    integration environment's stub REST server:
+    In Step 2 the integration environment will read this file and use specified port (configured `8882`) for the mock server.
+
+2.  Start the integration environment mock REST server:
+
+        yarn workspace integration start
+
+3.  Set up a server environment file that configures the server to talk to the integration environment's mock REST server.
+
+    Note: If you found that Step 2 produces an error, update `env.integration.json` to the port that was logged above, before running:
 
         ln -sf ./env.integration.json packages/server/env.json
 
-3.  Build the code that is shared by both the client and server:
+4.  Build the code that is shared by both the client and server:
 
         yarn workspace shared build
 
-4.  Start the GraphQl server inside an Express instance:
+5.  Start the GraphQl server inside an Express instance:
 
         yarn workspace server start
 
-5.  Set up a client environment file that configures the client to talk to the
+6.  Set up a client environment file that configures the client to talk to the
     GraphQL Express server:
 
         ln -sf ../env/localhost-4000.json packages/client/public/env.json
 
-6.  Start the client:
+7.  Start the client:
 
         yarn workspace client start
 
-7.  Go to http://localhost:3000
+8.  Go to http://localhost:3000
 
 ## Starting the GraphQL Server in a local Lambda
 
@@ -139,7 +148,7 @@ Note that the integration tests use a client production build,
     Note that if you've had to re-run steps 1, 2 or 3, you'll need to re-run
     this.
 
-5.  Run the tests:
+5.  Lastly, in another terminal, Run:
 
         yarn workspace tests start
 

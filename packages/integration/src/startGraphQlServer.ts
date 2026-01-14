@@ -1,7 +1,5 @@
-import { startApolloServer } from "../../server";
+import { startLocalApolloServer } from "../../server";
 import { TargetPort } from "./TargetPort";
-import { RunningServer } from "./RunningServer";
-import { getRunningServer } from "./getRunningServer";
 import { Endpoint } from "./Endpoint";
 
 /**
@@ -10,31 +8,24 @@ import { Endpoint } from "./Endpoint";
  */
 export async function startGraphQlServer({
   targetPort,
-  stubbyEndpoint,
+  mockServerEndpoint,
 }: {
   targetPort: TargetPort;
-  stubbyEndpoint: Endpoint;
-}): Promise<RunningServer> {
+  mockServerEndpoint: Endpoint;
+}): Promise<Endpoint> {
   const name = "GraphQL Server";
   console.log(`${name}: Starting...`);
 
-  const { server } = await startApolloServer(
+  const hostname = "127.0.0.1";
+
+  await startLocalApolloServer(
     {
-      messageServerUrl: `http://${stubbyEndpoint.hostname}:${stubbyEndpoint.port}`,
+      messageServerUrl: `http://${mockServerEndpoint.hostname}:${mockServerEndpoint.port}`,
     },
-    { host: "127.0.0.1", port: targetPort }
+    { host: hostname, port: targetPort }
   );
 
-  const runningServer = getRunningServer(server);
-  const { stop, endpoint } = runningServer;
+  console.log(`${name}: Ready at ${hostname}:${targetPort}`);
 
-  // Shut down the server if somebody kills the process
-  process.on("SIGINT", async () => {
-    await stop();
-    console.log(`${name}: Stopped`);
-  });
-
-  console.log(`${name}: Ready at ${endpoint.hostname}:${endpoint.port}`);
-
-  return runningServer;
+  return { hostname, port: targetPort };
 }

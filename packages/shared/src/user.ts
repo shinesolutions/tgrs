@@ -1,7 +1,7 @@
-import jwt from "jsonwebtoken";
-import { isUndefined, isString, isNull } from "lodash";
+import { decodeJwt } from "jose";
+import { isUndefined } from "lodash";
 import { Object as JsonObject } from "json-typescript";
-import { assert, assertIsString } from "./";
+import { assertIsString } from "./";
 
 /**
  * Gets information about the current user from an auth token. Because both the
@@ -17,12 +17,10 @@ export function getUserFromAuthToken(
   authToken: string | undefined
 ): { name: string } | undefined {
   if (!isUndefined(authToken)) {
-    const payload = jwt.decode(authToken);
-    assert(!isNull(payload), authToken);
-    assert(!isString(payload), authToken);
+    const payload = decodeJwt(authToken);
 
     // If we've gotten this far, we will assume that the payload is valid JSON
-    const json: JsonObject = payload;
+    const json: JsonObject = payload as JsonObject;
 
     const { name } = json;
 

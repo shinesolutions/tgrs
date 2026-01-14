@@ -1,3 +1,4 @@
 set -o errexit
+yarn install
 yarn codegen
-react-scripts start
+vite
